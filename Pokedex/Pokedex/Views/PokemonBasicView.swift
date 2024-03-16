@@ -8,35 +8,34 @@
 import SwiftUI
 
 struct PokemonBasicView: View {
-    @State var image: UIImage?
+    @State private var image: Image?
     @State var pokemon: PokemonBasic?
+    @State var id: Int
+    @State var width: CGFloat
 
     var body: some View {
         VStack {
-            ZStack {
-                Circle()
-                    .frame(width: width)
-                    .foregroundStyle(Color.blue.opacity(0.2))
-                
-                if let image = image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width)
+            NavigationLink(destination: PokemonView(id: id, image: image)) {
+                VStack {
+                    PokemonImage(image: image, width: width)
+                    
+                    if let pokemon = pokemon {
+                        Text(pokemon.name.capitalized)
+                            .font(.custom("PressStart2P-Regular", size: 12))
+                    }
                 }
             }
-                .padding()
-            
-            if let pokemon = pokemon {
-                Text(pokemon.name)
-                    .font(.custom("PressStart2P-Regular", size: 16))
+        }
+        .task {
+            do {
+                image = try await PokemonViewModel(id: id).getPokemonImage()
+            } catch {
+                // TODO: implement toast
             }
         }
     }
-    
-    private let width = UIScreen.main.bounds.width * 2 / 5
 }
 
 #Preview {
-    PokemonBasicView()
+    PokemonBasicView(pokemon: PokemonBasic(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 150)
 }

@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PokemonViewModel {
-    var id: Int = 1
+    var id: Int
+    
+    init(id: Int) {
+        self.id = id
+    }
 
     func getPokemon() async throws -> Pokemon {
         let endpoint = "https://pokeapi.co/api/v2/pokemon/\(id)"
@@ -29,5 +34,24 @@ class PokemonViewModel {
         } catch {
             throw PokemonError.invalidData
         }
+    }
+    
+    func getPokemonImage() async throws -> Image {
+        let endpoint = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png"
+        guard let url = URL(string: endpoint) else {
+            throw PokemonError.invalidUrl
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw PokemonError.invalidResponse
+        }
+        
+        guard let uiImage = UIImage(data: data) else {
+                throw PokemonError.invalidData
+            }
+            
+        return Image(uiImage: uiImage)
     }
 }

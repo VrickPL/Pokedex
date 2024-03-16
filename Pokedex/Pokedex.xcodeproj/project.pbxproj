@@ -22,6 +22,7 @@
 		74C5571B2BA62967009E4CA4 /* ChoosePokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5571A2BA62967009E4CA4 /* ChoosePokemonViewModel.swift */; };
 		74C5571D2BA629F0009E4CA4 /* PokemonsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5571C2BA629F0009E4CA4 /* PokemonsData.swift */; };
 		74C5571F2BA62A65009E4CA4 /* ChoosePokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5571E2BA62A65009E4CA4 /* ChoosePokemonView.swift */; };
+		74C557212BA63F8A009E4CA4 /* PokemonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C557202BA63F8A009E4CA4 /* PokemonImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		74C5571A2BA62967009E4CA4 /* ChoosePokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePokemonViewModel.swift; sourceTree = "<group>"; };
 		74C5571C2BA629F0009E4CA4 /* PokemonsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsData.swift; sourceTree = "<group>"; };
 		74C5571E2BA62A65009E4CA4 /* ChoosePokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePokemonView.swift; sourceTree = "<group>"; };
+		74C557202BA63F8A009E4CA4 /* PokemonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				74C557162BA61A2C009E4CA4 /* PokemonView.swift */,
 				74C5571E2BA62A65009E4CA4 /* ChoosePokemonView.swift */,
 				74C557182BA62833009E4CA4 /* LoadingView.swift */,
+				74C557202BA63F8A009E4CA4 /* PokemonImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				74C5571B2BA62967009E4CA4 /* ChoosePokemonViewModel.swift in Sources */,
 				74C557082BA60C1B009E4CA4 /* PokemonBasicView.swift in Sources */,
 				74C557032BA60896009E4CA4 /* PokemonBasic.swift in Sources */,
+				74C557212BA63F8A009E4CA4 /* PokemonImage.swift in Sources */,
 				74C5571D2BA629F0009E4CA4 /* PokemonsData.swift in Sources */,
 				74C556F42BA60606009E4CA4 /* ContentView.swift in Sources */,
 				74C557122BA616F1009E4CA4 /* PokemonViewModel.swift in Sources */,
