@@ -91,7 +91,7 @@ struct ChoosePokemonView: View {
             .navigationTitle("APP_NAME")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(
-                trailing: NavigationLink(destination: SettingsView()) {
+                trailing: NavigationLink(destination: SettingsView(search: true)) {
                     Image(systemName: "gearshape.fill")
                         .resizable()
                         .scaledToFit()
