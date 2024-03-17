@@ -111,10 +111,10 @@
 			isa = PBXGroup;
 			children = (
 				74C556F32BA60606009E4CA4 /* ContentView.swift */,
+				74C557182BA62833009E4CA4 /* LoadingView.swift */,
+				74C5571E2BA62A65009E4CA4 /* ChoosePokemonView.swift */,
 				74C557072BA60C1B009E4CA4 /* PokemonBasicView.swift */,
 				74C557162BA61A2C009E4CA4 /* PokemonView.swift */,
-				74C5571E2BA62A65009E4CA4 /* ChoosePokemonView.swift */,
-				74C557182BA62833009E4CA4 /* LoadingView.swift */,
 				74C557202BA63F8A009E4CA4 /* PokemonImage.swift */,
 			);
 			path = Views;

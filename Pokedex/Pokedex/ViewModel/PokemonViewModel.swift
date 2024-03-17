@@ -49,8 +49,8 @@ class PokemonViewModel {
         }
         
         guard let uiImage = UIImage(data: data) else {
-                throw PokemonError.invalidData
-            }
+            throw PokemonError.invalidData
+        }
             
         return Image(uiImage: uiImage)
     }
