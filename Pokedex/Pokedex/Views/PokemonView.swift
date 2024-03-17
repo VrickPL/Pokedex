@@ -30,12 +30,12 @@ struct PokemonView: View {
                     .padding(.bottom)
                 
                 HStack {
-                    Text("Weight: ").bold()
+                    Text(LocalizedStringKey("weight")).bold()
                     Text("\(pokemon!.weight / 10)kg")
                     Spacer()
                 }
                 HStack {
-                    Text("Height: ").bold()
+                    Text(LocalizedStringKey("height")).bold()
                     Text("\(pokemon!.height * 10)cm")
                     Spacer()
                 }
