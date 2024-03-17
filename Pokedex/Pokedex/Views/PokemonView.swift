@@ -15,46 +15,51 @@ struct PokemonView: View {
     private let pokemonWidth = UIScreen.main.bounds.width / 2
 
     var body: some View {
-        VStack {
-            if pokemon == nil {
-                LoadingView()
-            } else {
-                if let image = image {
-                    PokemonImage(image: image, width: pokemonWidth)
-                } else {
+        ZStack {
+            Color("BackgroundColor")
+                .ignoresSafeArea()
+            
+            VStack {
+                if pokemon == nil {
                     LoadingView()
-                }
-
-                Text(pokemon!.name.capitalized)
-                    .font(.custom("PressStart2P-Regular", size: 18))
-                    .padding(.bottom)
-                
-                HStack {
-                    Text(LocalizedStringKey("weight")).bold()
-                    Text("\(pokemon!.weight / 10)kg")
-                    Spacer()
-                }
-                HStack {
-                    Text(LocalizedStringKey("height")).bold()
-                    Text("\(pokemon!.height * 10)cm")
-                    Spacer()
+                } else {
+                    if let image = image {
+                        PokemonImage(image: image, width: pokemonWidth)
+                    } else {
+                        LoadingView()
+                    }
+                    
+                    Text(pokemon!.name.capitalized)
+                        .font(.custom("PressStart2P-Regular", size: 18))
+                        .padding(.bottom)
+                    
+                    HStack {
+                        Text(LocalizedStringKey("weight")).bold()
+                        Text("\(pokemon!.weight / 10)kg")
+                        Spacer()
+                    }
+                    HStack {
+                        Text(LocalizedStringKey("height")).bold()
+                        Text("\(pokemon!.height * 10)cm")
+                        Spacer()
+                    }
                 }
             }
-        }
-        .padding()
-        .task {
-            do {
-                pokemon = try await PokemonViewModel(id: id).getPokemon()
-            } catch {
-                // TODO: implement toast
-            }
-        }
-        .task {
-            if image == nil {
+            .padding()
+            .task {
                 do {
-                    image = try await PokemonViewModel(id: id).getPokemonImage()
+                    pokemon = try await PokemonViewModel(id: id).getPokemon()
                 } catch {
                     // TODO: implement toast
+                }
+            }
+            .task {
+                if image == nil {
+                    do {
+                        image = try await PokemonViewModel(id: id).getPokemonImage()
+                    } catch {
+                        // TODO: implement toast
+                    }
                 }
             }
         }

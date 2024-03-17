@@ -15,7 +15,7 @@ struct PokemonImage: View {
         ZStack {
             Circle()
                 .frame(width: width)
-                .foregroundStyle(Color.blue.opacity(0.2))
+                .foregroundStyle(Color("PokemonBackgroundColor").opacity(0.6))
             
             if let image = image {
                 image

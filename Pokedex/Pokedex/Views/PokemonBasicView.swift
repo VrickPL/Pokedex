@@ -22,6 +22,7 @@ struct PokemonBasicView: View {
                     if let pokemon = pokemon {
                         Text(pokemon.name.capitalized)
                             .font(.custom("PressStart2P-Regular", size: 12))
+                            .foregroundStyle(Color("PokemonTextColor"))
                     }
                 }
             }

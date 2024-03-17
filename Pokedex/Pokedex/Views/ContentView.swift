@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ChoosePokemonView()
+        ZStack {
+            Color("BackgroundColor")
+                .ignoresSafeArea()
+            ChoosePokemonView()
+        }
     }
 }
 
