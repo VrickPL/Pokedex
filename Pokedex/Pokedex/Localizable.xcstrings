@@ -117,6 +117,23 @@
         }
       }
     },
+    "catch_in_pokeball" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch in Pokeball!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Złap do Pokeballa!"
+          }
+        }
+      }
+    },
     "couldntFindPokemon" : {
       "localizations" : {
         "en" : {
@@ -333,6 +350,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Profil"
+          }
+        }
+      }
+    },
+    "remove_from_pokeball" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from Pokeball"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypuść z Pokeballa"
           }
         }
       }

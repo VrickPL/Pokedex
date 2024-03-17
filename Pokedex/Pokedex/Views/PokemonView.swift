@@ -11,6 +11,7 @@ struct PokemonView: View {
     @State var id: Int
     @State var image: Image?
     @State private var pokemon: Pokemon?
+    @State var isInMyPokedex = false
     
     @State private var couldntGetPokemon = false
     @State private var couldntGetPokemonImage = false
@@ -41,10 +42,10 @@ struct PokemonView: View {
                     LoadingView()
                 } else {
                     if let image = image {
-                        PokemonImage(image: image, width: pokemonWidth)
+                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: pokemonWidth)
+                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
                     } else {
                         LoadingView()
                     }
@@ -62,6 +63,30 @@ struct PokemonView: View {
                         Text(LocalizedStringKey("height")).bold()
                         Text("\(pokemon!.height * 10)cm")
                         Spacer()
+                    }
+                    .padding(.top)
+                    .padding(.bottom)
+
+                    if isInMyPokedex {
+                        Button {
+                            isInMyPokedex.toggle()
+                            //TODO
+                        } label: {
+                            Text("remove_from_pokeball")
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(10)
+                        }
+                    } else {
+                        Button {
+                            isInMyPokedex.toggle()
+                            //TODO
+                        } label: {
+                            Text("catch_in_pokeball")
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }
