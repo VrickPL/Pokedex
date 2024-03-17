@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct PokemonBasic: Codable, Hashable {
+struct PokemonBasic: Codable, Hashable{
     let name, url: String
 }

@@ -12,6 +12,17 @@ struct PokemonView: View {
     @State var image: Image?
     @State private var pokemon: Pokemon?
     
+    init(id: Int, image: Image? = nil) {
+        self.id = id
+        self.image = image
+    }
+    
+    init(pokemon: Pokemon, image: Image?) {
+        self.id = pokemon.id
+        self.image = image
+        self.pokemon = pokemon
+    }
+    
     private let pokemonWidth = UIScreen.main.bounds.width / 2
 
     var body: some View {
@@ -67,5 +78,5 @@ struct PokemonView: View {
 }
 
 #Preview {
-    PokemonView(id: 1)
+    PokemonView(id: 400)
 }

@@ -12,7 +12,7 @@ struct ContentView: View {
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
-            ChoosePokemonView()
+            ChoosePokemonView(searchType: SearchType.singlePokemon)
         }
     }
 }
