@@ -84,6 +84,26 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
+    "profile" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
+          }
+        }
+      }
+    },
     "weight" : {
       "extractionState" : "manual",
       "localizations" : {
