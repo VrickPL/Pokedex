@@ -20,16 +20,7 @@ struct ChoosePokemonView: View {
             ScrollView {
                 VStack {
                     if viewModel.results.isEmpty {
-                        LoadingView()
-                            .onAppear {
-                                do {
-                                    try viewModel.updatePokemons()
-                                } catch is PokemonError {
-                                    // TODO: implement toast
-                                } catch {
-                                    // unexpected
-                                }
-                            }
+                        LoadingPokemonsView(viewModel: viewModel)
                     } else {
                         if viewModel.searchTerm.isEmpty {
                             let pokemonWidth = UIScreen.main.bounds.width * 2 / 5
@@ -46,16 +37,7 @@ struct ChoosePokemonView: View {
                                 }
                                 
                                 if !viewModel.next.isEmpty {
-                                    LoadingView()
-                                        .onAppear {
-                                            do {
-                                                try viewModel.updatePokemons()
-                                            } catch is PokemonError {
-                                                // TODO: implement toast
-                                            } catch {
-                                                // unexpected
-                                            }
-                                        }
+                                    LoadingPokemonsView(viewModel: viewModel)
                                     LoadingView()
                                 }
                             }
@@ -100,20 +82,39 @@ struct ChoosePokemonView: View {
             )
             .onChange(of: viewModel.searchTerm) {
                 if search {
-                    do {
-                        try viewModel.findOnePokemon()
-                    } catch is PokemonError {
-                        // TODO: implement toast
-                    } catch {
-                        // unexpected
+                    Task {
+                        do {
+                            try await viewModel.findOneNewPokemon()
+                        } catch is PokemonError {
+                            // TODO: implement toast
+                        } catch {
+                            // unexpected
+                        }
                     }
                 }
             }
         }
     }
-}
     
-
+    private struct LoadingPokemonsView: View {
+        @ObservedObject var viewModel: ChoosePokemonViewModel
+        
+        var body: some View {
+            LoadingView()
+                .onAppear {
+                    Task {
+                        do {
+                            try await viewModel.updatePokemons()
+                        } catch is PokemonError {
+                            // TODO: implement toast
+                        } catch {
+                            // unexpected
+                        }
+                    }
+                }
+        }
+    }
+}
 
 #Preview {
     ChoosePokemonView()

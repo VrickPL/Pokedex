@@ -22,7 +22,7 @@ class ChoosePokemonViewModel: ObservableObject {
     private var offset: Int = 0
     private var limit: Int = 20
 
-    func updatePokemons() throws {
+    func updatePokemons() async throws {
         let endpoint =  if next.isEmpty {
             "https://pokeapi.co/api/v2/pokemon?offset=\(offset)&limit=\(limit)"
         } else {
@@ -33,73 +33,46 @@ class ChoosePokemonViewModel: ObservableObject {
             throw PokemonError.invalidUrl
         }
         
-        var errorToThrow: Error?
-
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            if error == nil {
-                if data != nil {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let myServiceResponse = try decoder.decode(PokemonsData.self, from: data!)
-                        DispatchQueue.main.async {
-                            self.results.append(contentsOf: myServiceResponse.results)
-                            self.maxCount = myServiceResponse.count
-                            self.next = myServiceResponse.next
-                            self.myCount += myServiceResponse.results.count
-                        }
-                    } catch let exception {
-                        errorToThrow = exception
-                    }
-                } else {
-                    errorToThrow = PokemonError.invalidData
-                }
-            } else {
-                errorToThrow = PokemonError.invalidResponse
-            }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw PokemonError.invalidResponse
         }
+        
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let myServiceResponse = try decoder.decode(PokemonsData.self, from: data)
 
-        if let error = errorToThrow {
-            throw error
+            self.results.append(contentsOf: myServiceResponse.results)
+            self.maxCount = myServiceResponse.count
+            self.next = myServiceResponse.next
+            self.myCount += myServiceResponse.results.count
+        } catch {
+            throw PokemonError.invalidData
         }
-
-        task.resume()
     }
     
-    func findOnePokemon() throws {
+    func findOneNewPokemon() async throws {
+        self.pokemonFound = nil
         let endpoint = "https://pokeapi.co/api/v2/pokemon/\(searchTerm.lowercased())/"
 
         guard let url = URL(string: endpoint) else {
             throw PokemonError.invalidUrl
         }
         
-        var errorToThrow: Error?
-
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            if error == nil {
-                if data != nil {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let myServiceResponse = try decoder.decode(Pokemon.self, from: data!)
-                        DispatchQueue.main.async {
-                            self.pokemonFound = myServiceResponse
-                        }
-                    } catch let exception {
-                        errorToThrow = exception
-                    }
-                } else {
-                    errorToThrow = PokemonError.invalidData
-                }
-            } else {
-                errorToThrow = PokemonError.invalidResponse
-            }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw PokemonError.invalidResponse
         }
-
-        if let error = errorToThrow {
-            throw error
+        
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            self.pokemonFound = try decoder.decode(Pokemon.self, from: data)
+        } catch {
+            throw PokemonError.invalidData
         }
-
-        task.resume()
     }
 }
