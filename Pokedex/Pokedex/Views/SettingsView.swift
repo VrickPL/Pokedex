@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage(Keys.selectedLanguageKey) private var selectedLanguage = "auto"
-    @AppStorage(Keys.selectedThemeKey) private var selectedTheme = "auto"
+    @AppStorage(Keys.selectedThemeKey) private var selectedTheme: Theme = .systemDefault
     @AppStorage(Keys.searchKey) private var search = true
     
     var body: some View {
@@ -24,9 +24,9 @@ struct SettingsView: View {
                 }
                 Section(header: Text("theme")) {
                     Picker("theme", selection: $selectedTheme) {
-                        Text("auto").tag("auto")
-                        Text("light").tag("light")
-                        Text("dark").tag("dark")
+                        ForEach(Theme.allCases, id: \.rawValue) { theme in
+                            Text(LocalizedStringKey(theme.rawValue)).tag(theme)
+                        }
                     }
                 }
                 Section(header: Text("search")) {
@@ -37,13 +37,14 @@ struct SettingsView: View {
         }
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.large)
+        .preferredColorScheme(selectedTheme.colorScheme)
     }
-    
-    private struct Keys {
-        static let selectedLanguageKey = "selectedLanguage"
-        static let selectedThemeKey = "selectedTheme"
-        static let searchKey = "searchBool"
-    }
+}
+
+struct Keys {
+    static let selectedLanguageKey = "selectedLanguage"
+    static let selectedThemeKey = "selectedTheme"
+    static let searchKey = "searchBool"
 }
 
 #Preview {
