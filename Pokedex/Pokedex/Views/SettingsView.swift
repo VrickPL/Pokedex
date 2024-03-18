@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage(Keys.selectedLanguageKey) private var selectedLanguage = "auto"
-    @AppStorage(Keys.selectedThemeKey) private var selectedTheme: Theme = .systemDefault
+    @AppStorage(Keys.selectedLanguageKey) private var selectedLanguage: Language = Language.systemDefault
+    @AppStorage(Keys.selectedThemeKey) private var selectedTheme: Theme = Theme.systemDefault
     @AppStorage(Keys.searchKey) private var search = true
     
     var body: some View {
@@ -17,9 +17,9 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("language")) {
                     Picker("language", selection: $selectedLanguage) {
-                        Text("auto").tag("auto")
-                        Text("english").tag("english")
-                        Text("polish").tag("polish")
+                        ForEach(Language.allCases, id: \.rawValue) { language in
+                            Text(LocalizedStringKey(language.rawValue)).tag(language)
+                        }
                     }
                 }
                 Section(header: Text("theme")) {
@@ -35,8 +35,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle("settings")
-        .navigationBarTitleDisplayMode(.large)
+        .environment(\.locale, selectedLanguage.locale)
         .preferredColorScheme(selectedTheme.colorScheme)
     }
 }

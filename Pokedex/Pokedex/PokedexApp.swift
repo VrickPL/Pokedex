@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct PokedexApp: App {
     @AppStorage(Keys.selectedThemeKey) private var selectedTheme: Theme = .systemDefault
+    @AppStorage(Keys.selectedLanguageKey) private var selectedLanguage: Language = .systemDefault
 
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
                 .preferredColorScheme(selectedTheme.colorScheme)
+                .environment(\.locale, selectedLanguage.locale)
         }
     }
 }
