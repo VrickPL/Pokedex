@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var selectedLanguage = "auto"
-    @State private var selectedTheme = "auto"
-    @State var search: Bool
+    @AppStorage(Keys.selectedLanguageKey) private var selectedLanguage = "auto"
+    @AppStorage(Keys.selectedThemeKey) private var selectedTheme = "auto"
+    @AppStorage(Keys.searchKey) private var search = true
     
     var body: some View {
         NavigationView {
@@ -37,13 +37,15 @@ struct SettingsView: View {
         }
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.large)
-        .onDisappear {
-            // TODO: save in UserDefaults
-        }
     }
-        
+    
+    private struct Keys {
+        static let selectedLanguageKey = "selectedLanguage"
+        static let selectedThemeKey = "selectedTheme"
+        static let searchKey = "searchBool"
+    }
 }
 
 #Preview {
-    SettingsView(search: true)
+    SettingsView()
 }

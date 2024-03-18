@@ -229,13 +229,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search by exact name"
+            "value" : "Search by whole name"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Szukaj przez dokładną nazwę"
+            "value" : "Szukaj przez pełną nazwę"
           }
         }
       }
