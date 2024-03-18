@@ -12,12 +12,22 @@ struct PokemonBasicView: View {
     @State var pokemon: PokemonBasic?
     @State var id: Int
     @State var width: CGFloat
+    
+    @State private var couldntGetPokemonImage = false
+    
 
     var body: some View {
         VStack {
             NavigationLink(destination: PokemonView(id: id, image: image)) {
                 VStack {
-                    PokemonImage(image: image, width: width)
+                    if let image = image {
+                        PokemonImage(image: image, width: width)
+                    } else if couldntGetPokemonImage {
+                        let image = Image("PokemonWithoutImage")
+                        PokemonImage(image: image, width: width)
+                    } else {
+                        LoadingView()
+                    }
                     
                     if let pokemon = pokemon {
                         Text(pokemon.name.capitalized)
@@ -30,8 +40,13 @@ struct PokemonBasicView: View {
         .task {
             do {
                 image = try await PokemonViewModel(id: id).getPokemonImage()
+                self.couldntGetPokemonImage = false
+            } catch is PokemonError {
+                self.couldntGetPokemonImage = true
             } catch {
-                // TODO: implement toast
+                // unexpected
+                // TODO: show toast
+                self.couldntGetPokemonImage = true
             }
         }
     }

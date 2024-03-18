@@ -2,7 +2,20 @@
   "sourceLanguage" : "en",
   "strings" : {
     "-  Jan Kazubski" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-  Jan Kazubski"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%lldcm" : {
       "localizations" : {
@@ -104,6 +117,72 @@
         }
       }
     },
+    "couldntFindPokemon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't find this Pokemon. Please enter full name."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie znaleziono Pokemona o podanej nazwie. Proszę podać pełną nazwę."
+          }
+        }
+      }
+    },
+    "couldntFindPokemons" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't find these Pokemons. Please scroll more to explore them."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie znaleziono Pokemonów o podanej nazwie. Proszę skrollować dalej, aby odkryć ich więcej."
+          }
+        }
+      }
+    },
+    "couldntGetPokemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't get the Pokemon info. Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się pobrać informacji o Pokemonie. Spróbuj ponownie."
+          }
+        }
+      }
+    },
+    "couldntUpdatePokemons" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't update the Pokemons."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się pobrać nowych Pokemonów."
+          }
+        }
+      }
+    },
     "dark" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -139,7 +218,20 @@
       }
     },
     "Github" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Github"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "height" : {
       "extractionState" : "manual",
@@ -196,7 +288,20 @@
       }
     },
     "LinkedIn" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LinkedIn"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "polish" : {
       "extractionState" : "manual",
@@ -296,6 +401,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Motyw"
+          }
+        }
+      }
+    },
+    "try_again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spróbuj ponownie"
           }
         }
       }

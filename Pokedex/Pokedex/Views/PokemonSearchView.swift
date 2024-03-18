@@ -13,6 +13,9 @@ struct PokemonSearchView: View {
     @State var id: Int
     @State var width: CGFloat
     
+    @State private var couldntGetPokemonImage = false
+    
+    
     init(image: Image? = nil, pokemon: PokemonBasic? = nil, id: Int, width: CGFloat) {
         self.image = image
         self.pokemon = pokemon
@@ -24,7 +27,14 @@ struct PokemonSearchView: View {
         VStack {
             NavigationLink(destination: PokemonView(id: id, image: image)) {
                 HStack {
-                    PokemonImage(image: image, width: width)
+                    if let image = image {
+                        PokemonImage(image: image, width: width)
+                    } else if couldntGetPokemonImage {
+                        let image = Image("PokemonWithoutImage")
+                        PokemonImage(image: image, width: width)
+                    } else {
+                        LoadingView()
+                    }
                     if let pokemon = pokemon {
                         Text(pokemon.name.capitalized)
                             .font(.custom("PressStart2P-Regular", size: 16))
@@ -37,8 +47,13 @@ struct PokemonSearchView: View {
         .task {
             do {
                 image = try await PokemonViewModel(id: id).getPokemonImage()
+                self.couldntGetPokemonImage = false
+            } catch is PokemonError {
+                self.couldntGetPokemonImage = true
             } catch {
-                // TODO: implement toast
+                // unexpected
+                // TODO: show toast
+                self.couldntGetPokemonImage = true
             }
         }
     }

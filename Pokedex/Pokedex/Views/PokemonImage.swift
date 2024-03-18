@@ -23,7 +23,10 @@ struct PokemonImage: View {
                     .scaledToFit()
                     .frame(width: width)
             } else {
-                LoadingView()
+                Image("PokemonWithoutImage")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: width)
             }
         }
         .padding()

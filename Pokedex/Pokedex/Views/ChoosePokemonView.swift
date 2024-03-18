@@ -11,6 +11,9 @@ struct ChoosePokemonView: View {
     @AppStorage(Keys.searchKey) private var search = true
     @ObservedObject private var viewModel = ChoosePokemonViewModel()
     
+    @State private var couldntUpdatePokemons = false
+    @State private var couldntFindPokemon = false
+    
     init() {
         UINavigationBar.appearance().barTintColor = UIColor(Color("BackgroundColor"))
     }
@@ -20,7 +23,13 @@ struct ChoosePokemonView: View {
             ScrollView {
                 VStack {
                     if viewModel.results.isEmpty {
-                        LoadingPokemonsView(viewModel: viewModel)
+                        if couldntUpdatePokemons && !viewModel.isWaitingPokemons {
+                            Text("couldntUpdatePokemons")
+                                .foregroundStyle(.red)
+                                .padding()
+                        } else {
+                            LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
+                        }
                     } else {
                         if viewModel.searchTerm.isEmpty {
                             let pokemonWidth = UIScreen.main.bounds.width * 2 / 5
@@ -35,10 +44,16 @@ struct ChoosePokemonView: View {
                                                 .opacity(phase.isIdentity ? 1 : 0.4)
                                         }
                                 }
-                                
+
                                 if !viewModel.next.isEmpty {
-                                    LoadingPokemonsView(viewModel: viewModel)
-                                    LoadingView()
+                                    if couldntUpdatePokemons && !viewModel.isWaitingPokemons {
+                                        Text("couldntUpdatePokemons")
+                                            .foregroundStyle(.red)
+                                            .padding()
+                                    } else {
+                                        LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
+                                        LoadingView()
+                                    }
                                 }
                             }
                         } else {
@@ -53,12 +68,23 @@ struct ChoosePokemonView: View {
                                     if let pokemon = viewModel.pokemonFound {
                                         SinglePokemonSearchView(pokemon: pokemon, width: pokemonWidth)
                                     } else {
-                                        LoadingView()
+                                        if couldntFindPokemon || (!viewModel.isWaitingSinglePokemon && viewModel.pokemonFound == nil) {
+                                            Text("couldntFindPokemon")
+                                                .foregroundStyle(.red)
+                                                .padding()
+                                        } else {
+                                            LoadingView()
+                                        }
                                     }
                                 } else {
-                                    ForEach(allPokemons.indices, id: \.self) { index in
-                                        if filteredPokemons.contains(allPokemons[index]) {
-                                            PokemonSearchView(pokemon: allPokemons[index], id: index + 1, width: pokemonWidth)
+                                    if filteredPokemons.isEmpty {
+                                        Text("couldntFindPokemons")
+                                            .foregroundStyle(.red)
+                                    } else {
+                                        ForEach(allPokemons.indices, id: \.self) { index in
+                                            if filteredPokemons.contains(allPokemons[index]) {
+                                                PokemonSearchView(pokemon: allPokemons[index], id: index + 1, width: pokemonWidth)
+                                            }
                                         }
                                     }
                                 }
@@ -82,14 +108,15 @@ struct ChoosePokemonView: View {
             )
             .onChange(of: viewModel.searchTerm) {
                 if search {
-                    Task {
-                        do {
-                            try viewModel.findOnePokemon()
-                        } catch is PokemonError {
-                            // TODO: implement toast
-                        } catch {
-                            // unexpected
-                        }
+                    do {
+                        try viewModel.findOnePokemon()
+                        self.couldntFindPokemon = false
+                    } catch is PokemonError {
+                        self.couldntFindPokemon = true
+                    } catch {
+                        // unexpected
+                        // TODO: show toast
+                        self.couldntFindPokemon = true
                     }
                 }
             }
@@ -98,16 +125,20 @@ struct ChoosePokemonView: View {
     
     private struct LoadingPokemonsView: View {
         @ObservedObject var viewModel: ChoosePokemonViewModel
+        @Binding var couldntUpdatePokemons: Bool
         
         var body: some View {
             LoadingView()
                 .onAppear {
                     do {
                         try viewModel.updatePokemons()
+                        self.couldntUpdatePokemons = false
                     } catch is PokemonError {
-                        // TODO: implement toast
+                        self.couldntUpdatePokemons = true
                     } catch {
                         // unexpected
+                        // TODO: show toast
+                        self.couldntUpdatePokemons = true
                     }
                 }
         }

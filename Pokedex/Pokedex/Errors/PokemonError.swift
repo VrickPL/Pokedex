@@ -11,4 +11,5 @@ enum PokemonError: Error {
     case invalidUrl
     case invalidResponse
     case invalidData
+    case couldntFindPokemon
 }
