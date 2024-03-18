@@ -33,6 +33,26 @@ struct SettingsView: View {
                     Toggle("search_by_name", isOn: $search)
                         .toggleStyle(SwitchToggleStyle())
                 }
+                Section(header: HStack {
+                    Image(systemName: "link")
+                    Text("app_author")
+                    Text("-  Jan Kazubski")
+                }) {
+                    Button {
+                        if let url = URL(string: "https://github.com/VrickPL") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("Github")
+                    }
+                    Button {
+                        if let url = URL(string: "https://linkedin.com/in/jan-kazubski") {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("LinkedIn")
+                    }
+                }
             }
         }
         .environment(\.locale, selectedLanguage.locale)

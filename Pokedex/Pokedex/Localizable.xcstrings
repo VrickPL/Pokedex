@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "-  Jan Kazubski" : {
+
+    },
     "%lldcm" : {
       "localizations" : {
         "en" : {
@@ -29,6 +32,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
+          }
+        }
+      }
+    },
+    "app_author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autor"
           }
         }
       }
@@ -118,6 +138,9 @@
         }
       }
     },
+    "Github" : {
+
+    },
     "height" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -171,6 +194,9 @@
           }
         }
       }
+    },
+    "LinkedIn" : {
+
     },
     "polish" : {
       "extractionState" : "manual",
