@@ -84,7 +84,7 @@ struct ChoosePokemonView: View {
                 if search {
                     Task {
                         do {
-                            try await viewModel.findOneNewPokemon()
+                            try viewModel.findOnePokemon()
                         } catch is PokemonError {
                             // TODO: implement toast
                         } catch {
@@ -102,14 +102,12 @@ struct ChoosePokemonView: View {
         var body: some View {
             LoadingView()
                 .onAppear {
-                    Task {
-                        do {
-                            try await viewModel.updatePokemons()
-                        } catch is PokemonError {
-                            // TODO: implement toast
-                        } catch {
-                            // unexpected
-                        }
+                    do {
+                        try viewModel.updatePokemons()
+                    } catch is PokemonError {
+                        // TODO: implement toast
+                    } catch {
+                        // unexpected
                     }
                 }
         }
