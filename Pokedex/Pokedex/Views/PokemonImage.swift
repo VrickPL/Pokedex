@@ -13,16 +13,20 @@ struct PokemonImage: View {
 
     var body: some View {
         ZStack {
-            Circle()
-                .frame(width: width)
-                .foregroundStyle(Color("PokemonBackgroundColor").opacity(0.6))
-            
-            if let image = image {
-                image
+            if image != nil && image != Image("PokemonWithoutImage") {
+                Circle()
+                    .frame(width: width)
+                    .foregroundStyle(Color("PokemonBackgroundColor").opacity(0.6))
+
+                image!
                     .resizable()
                     .scaledToFit()
                     .frame(width: width)
             } else {
+                Circle()
+                    .frame(width: width)
+                    .foregroundStyle(Color("NonePokemonBackgroundColor").opacity(0.6))
+
                 Image("PokemonWithoutImage")
                     .resizable()
                     .scaledToFit()
