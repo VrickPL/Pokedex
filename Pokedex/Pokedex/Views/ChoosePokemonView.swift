@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ChoosePokemonView: View {
+    @AppStorage(Keys.searchKey) private var search = true
     @ObservedObject private var viewModel = ChoosePokemonViewModel()
-    @State var searchType: SearchType
     
-    init(searchType: SearchType) {
+    init() {
         UINavigationBar.appearance().barTintColor = UIColor(Color("BackgroundColor"))
-        self.searchType = searchType
     }
     
     var body: some View {
@@ -68,17 +67,17 @@ struct ChoosePokemonView: View {
                             let gridItems = [GridItem(.flexible(minimum: pokemonWidth + 10))]
                             
                             LazyVGrid(columns: gridItems, spacing: 20) {
-                                if searchType == SearchType.fetchedPokemons {
-                                    ForEach(allPokemons.indices, id: \.self) { index in
-                                        if filteredPokemons.contains(allPokemons[index]) {
-                                            PokemonSearchView(pokemon: allPokemons[index], id: index + 1, width: pokemonWidth)
-                                        }
-                                    }
-                                } else {
+                                if search {
                                     if let pokemon = viewModel.pokemonFound {
                                         SinglePokemonSearchView(pokemon: pokemon, width: pokemonWidth)
                                     } else {
                                         LoadingView()
+                                    }
+                                } else {
+                                    ForEach(allPokemons.indices, id: \.self) { index in
+                                        if filteredPokemons.contains(allPokemons[index]) {
+                                            PokemonSearchView(pokemon: allPokemons[index], id: index + 1, width: pokemonWidth)
+                                        }
                                     }
                                 }
                             }
@@ -100,7 +99,7 @@ struct ChoosePokemonView: View {
                     }
             )
             .onChange(of: viewModel.searchTerm) {
-                if searchType == SearchType.singlePokemon {
+                if search {
                     do {
                         try viewModel.findOnePokemon()
                     } catch is PokemonError {
@@ -117,5 +116,5 @@ struct ChoosePokemonView: View {
 
 
 #Preview {
-    ChoosePokemonView(searchType: SearchType.singlePokemon)
+    ChoosePokemonView()
 }

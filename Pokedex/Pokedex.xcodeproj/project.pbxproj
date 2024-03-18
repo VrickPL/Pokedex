@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74BE50AB2BA85F0E008B10FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE50AA2BA85F0E008B10FD /* Theme.swift */; };
+		74BE50AD2BA86413008B10FD /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE50AC2BA86413008B10FD /* Language.swift */; };
 		74C556F22BA60606009E4CA4 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C556F12BA60606009E4CA4 /* PokedexApp.swift */; };
 		74C556F42BA60606009E4CA4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C556F32BA60606009E4CA4 /* ContentView.swift */; };
 		74C556F62BA60607009E4CA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C556F52BA60607009E4CA4 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74BE50AA2BA85F0E008B10FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		74BE50AC2BA86413008B10FD /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		74C556EE2BA60606009E4CA4 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C556F12BA60606009E4CA4 /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
 		74C556F32BA60606009E4CA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 			isa = PBXGroup;
 			children = (
 				74C5572D2BA7953F009E4CA4 /* SearchType.swift */,
+				74BE50AA2BA85F0E008B10FD /* Theme.swift */,
+				74BE50AC2BA86413008B10FD /* Language.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 				74C557082BA60C1B009E4CA4 /* PokemonBasicView.swift in Sources */,
 				74C557032BA60896009E4CA4 /* PokemonBasic.swift in Sources */,
 				74C557342BA7997B009E4CA4 /* SettingsView.swift in Sources */,
+				74BE50AB2BA85F0E008B10FD /* Theme.swift in Sources */,
 				74C557212BA63F8A009E4CA4 /* PokemonImage.swift in Sources */,
 				74C557272BA7446E009E4CA4 /* PokemonSearchView.swift in Sources */,
 				74C5571D2BA629F0009E4CA4 /* PokemonsData.swift in Sources */,
@@ -270,6 +277,7 @@
 				74C557322BA7996C009E4CA4 /* ProfileView.swift in Sources */,
 				74C557192BA62833009E4CA4 /* LoadingView.swift in Sources */,
 				74C5571F2BA62A65009E4CA4 /* ChoosePokemonView.swift in Sources */,
+				74BE50AD2BA86413008B10FD /* Language.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
