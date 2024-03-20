@@ -17,10 +17,10 @@ struct ToolbarView: View {
                         Text("APP_NAME")
                     }
                 
-                ProfileView()
+                FavouritePokemonsView()
                     .tabItem {
-                        Image(systemName: "person")
-                        Text("profile")
+                        Image(systemName: "heart.fill")
+                        Text("favourite")
                     }
             }
             .toolbarBackground(Color("ToolbarColor"), for: .tabBar)

@@ -20,11 +20,12 @@ struct PokemonBasicView: View {
         VStack {
             NavigationLink(destination: PokemonView(id: id, image: image)) {
                 VStack {
+                    let isInMyPokedex = FavouritePokemonsManager.shared.isPokemonInFavourites(id)
                     if let image = image {
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
                     } else {
                         LoadingView()
                     }

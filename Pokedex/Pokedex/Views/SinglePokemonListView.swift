@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct SinglePokemonSearchView: View {
+struct SinglePokemonListView: View {
     @State private var image: Image?
     @State var pokemon: Pokemon
     @State var width: CGFloat
+    @State var shouldShowTrash: Bool = false
     
     @State private var couldntGetPokemonImage = false
     
@@ -18,11 +19,12 @@ struct SinglePokemonSearchView: View {
         VStack {
             NavigationLink(destination: PokemonView(pokemon: pokemon, image: image)) {
                 HStack {
+                    let isInMyPokedex = FavouritePokemonsManager.shared.isPokemonInFavourites(pokemon.id)
                     if let image = image {
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
                     } else {
                         LoadingView()
                     }
@@ -31,6 +33,18 @@ struct SinglePokemonSearchView: View {
                         .foregroundStyle(Color("PokemonTextColor"))
                     
                     Spacer()
+                    
+                    if shouldShowTrash {
+                        Button {
+                            FavouritePokemonsManager.shared.removePokemonId(pokemon.id)
+                        } label: {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width / 2)
+                        }
+                        .padding()
+                    }
                 }
             }
         }

@@ -167,6 +167,23 @@
         }
       }
     },
+    "couldntGetFavouritePokemons" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't download favourite Pokemons. Please try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się pobrać ulubionych pokemonów. Proszę spróbować ponownie."
+          }
+        }
+      }
+    },
     "couldntGetPokemon" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -234,6 +251,40 @@
         }
       }
     },
+    "favourite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favourite"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ulubione"
+          }
+        }
+      }
+    },
+    "favouritePokemonsEmpty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You don't have any favourite Pokemons!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie masz ulubionych Pokemonów!"
+          }
+        }
+      }
+    },
     "Github" : {
       "localizations" : {
         "en" : {
@@ -266,9 +317,6 @@
           }
         }
       }
-    },
-    "Hello, World!" : {
-
     },
     "language" : {
       "extractionState" : "manual",
