@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SimpleToast
 
 struct DetailedPokemonView: View {
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
@@ -17,6 +18,11 @@ struct DetailedPokemonView: View {
     private var id: Int
     private let pokemonWidth = UIScreen.main.bounds.width / 2
     
+    @State private var showToast = false
+    @State private var showToastAdd = false
+    @State private var showToastDelete = false
+    @State private var toastOptions: ToastOptions = .successAddPokemon
+    
     init(id: Int, image: Image? = nil) {
         self.id = id
         self.image = image
@@ -27,8 +33,8 @@ struct DetailedPokemonView: View {
         self.image = image
         self.pokemon = pokemon
     }
-
-
+    
+    
     var body: some View {
         ZStack {
             Color("BackgroundColor")
@@ -69,10 +75,11 @@ struct DetailedPokemonView: View {
                     }
                     .padding(.top)
                     .padding(.bottom)
-
+                    
                     if isInMyPokedex {
                         Button {
-                            FavouritePokemonsManager.shared.removePokemonId(id)
+                            self.toastOptions = .successDeletePokemon
+                            self.showToastDelete = true
                         } label: {
                             Text("remove_from_pokeball")
                                 .padding()
@@ -81,7 +88,8 @@ struct DetailedPokemonView: View {
                         }
                     } else {
                         Button {
-                            FavouritePokemonsManager.shared.addPokemonId(id)
+                            self.toastOptions = .successAddPokemon
+                            self.showToastAdd = true
                         } label: {
                             Text("catch_in_pokeball")
                                 .padding()
@@ -99,8 +107,8 @@ struct DetailedPokemonView: View {
                 } catch is PokemonError {
                     self.couldntGetPokemon = true
                 } catch {
-                    // unexpected
-                    // TODO: show toast
+                    self.toastOptions = .unexpectedError
+                    self.showToast = true
                     self.couldntGetPokemon = true
                 }
             }
@@ -112,14 +120,27 @@ struct DetailedPokemonView: View {
                     } catch is PokemonError {
                         self.couldntGetPokemonImage = true
                     } catch {
-                        // unexpected
-                        // TODO: show toast
+                        self.toastOptions = .unexpectedError
+                        self.showToast = true
                         self.couldntGetPokemonImage = true
                     }
                 }
             }
             .onChange(of: favouritePokemons) {
                 self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+            }
+            .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastAdd, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.addPokemonId(id)
+            }) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastDelete, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.removePokemonId(id)
+            }) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
             }
         }
     }

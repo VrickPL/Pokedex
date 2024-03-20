@@ -16,6 +16,9 @@ struct PokemonView: View {
     @State var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
     
+    @State private var showToast = false
+    @State private var toastOptions: ToastOptions = .unexpectedError
+    
     
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
 
@@ -47,8 +50,8 @@ struct PokemonView: View {
             } catch is PokemonError {
                 self.couldntGetPokemonImage = true
             } catch {
-                // unexpected
-                // TODO: show toast
+                self.toastOptions = .unexpectedError
+                self.showToast = true
                 self.couldntGetPokemonImage = true
             }
         }
@@ -57,6 +60,9 @@ struct PokemonView: View {
         }
         .onChange(of: favouritePokemons) {
             self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+        }
+        .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+            ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
         }
     }
 }

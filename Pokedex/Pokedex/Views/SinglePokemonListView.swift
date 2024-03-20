@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SimpleToast
 
 struct SinglePokemonListView: View {
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
@@ -16,6 +17,9 @@ struct SinglePokemonListView: View {
     private var pokemonName: String
     private var width: CGFloat
     private var shouldShowTrash: Bool
+    
+    @State private var showToast = false
+    @State private var toastOptions: ToastOptions = .unexpectedError
 
 
     init(pokemon: DetailedPokemon, width: CGFloat, shouldShowTrash: Bool) {
@@ -63,7 +67,8 @@ struct SinglePokemonListView: View {
                     
                     if shouldShowTrash {
                         Button {
-                            FavouritePokemonsManager.shared.removePokemonId(pokemonId)
+                            self.toastOptions = .successDeletePokemon
+                            self.showToast = true
                         } label: {
                             Image(systemName: "trash")
                                 .resizable()
@@ -84,6 +89,11 @@ struct SinglePokemonListView: View {
                 await fetchImage()
             }
         }
+        .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {
+            FavouritePokemonsManager.shared.removePokemonId(pokemonId)
+        }) {
+            ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+        }
     }
     
     private func fetchImage() async {
@@ -93,8 +103,8 @@ struct SinglePokemonListView: View {
         } catch is PokemonError {
             self.couldntGetPokemonImage = true
         } catch {
-            // unexpected
-            // TODO: show toast
+            self.toastOptions = .unexpectedError
+            self.showToast = true
             self.couldntGetPokemonImage = true
         }
     }
