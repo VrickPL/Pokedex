@@ -69,7 +69,6 @@ struct SinglePokemonListView: View {
                         Button {
                             self.toastOptions = .successDeletePokemon
                             self.showToast = true
-                            FavouritePokemonsManager.shared.removePokemonId(pokemonId)
                         } label: {
                             Image(systemName: "trash")
                                 .resizable()
@@ -90,7 +89,9 @@ struct SinglePokemonListView: View {
                 await fetchImage()
             }
         }
-        .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+        .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {
+            FavouritePokemonsManager.shared.removePokemonId(pokemonId)
+        }) {
             ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
         }
     }

@@ -19,6 +19,8 @@ struct DetailedPokemonView: View {
     private let pokemonWidth = UIScreen.main.bounds.width / 2
     
     @State private var showToast = false
+    @State private var showToastAdd = false
+    @State private var showToastDelete = false
     @State private var toastOptions: ToastOptions = .successAddPokemon
     
     init(id: Int, image: Image? = nil) {
@@ -77,8 +79,7 @@ struct DetailedPokemonView: View {
                     if isInMyPokedex {
                         Button {
                             self.toastOptions = .successDeletePokemon
-                            FavouritePokemonsManager.shared.removePokemonId(id)
-                            self.showToast = true
+                            self.showToastDelete = true
                         } label: {
                             Text("remove_from_pokeball")
                                 .padding()
@@ -88,8 +89,7 @@ struct DetailedPokemonView: View {
                     } else {
                         Button {
                             self.toastOptions = .successAddPokemon
-                            FavouritePokemonsManager.shared.addPokemonId(id)
-                            self.showToast = true
+                            self.showToastAdd = true
                         } label: {
                             Text("catch_in_pokeball")
                                 .padding()
@@ -130,6 +130,16 @@ struct DetailedPokemonView: View {
                 self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
             }
             .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastAdd, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.addPokemonId(id)
+            }) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastDelete, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.removePokemonId(id)
+            }) {
                 ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
             }
         }

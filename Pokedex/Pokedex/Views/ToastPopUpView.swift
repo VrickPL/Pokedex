@@ -28,7 +28,7 @@ struct ToastPopUpView: View {
 func getToastConfig() -> SimpleToastOptions {
     return SimpleToastOptions(
         alignment: .top,
-        hideAfter: 2,
+        hideAfter: 1.5,
         animation: .default,
         modifierType: .slide,
         dismissOnTap: true
