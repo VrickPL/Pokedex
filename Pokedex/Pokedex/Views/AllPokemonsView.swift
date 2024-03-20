@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct AllPokemonsView: View {
     @AppStorage(Keys.searchKey) private var search = true
@@ -38,11 +39,14 @@ struct AllPokemonsView: View {
                         if viewModel.searchTerm.isEmpty {
                             let pokemonWidth = UIScreen.main.bounds.width * 2 / 5
                             let gridItems = [GridItem(.adaptive(minimum: pokemonWidth + 10))]
-                            
+                            TipView(ClickPokemonTip())
+                                .tipBackground(Color("PokemonBackgroundColor"))
+                                .padding()
+
                             LazyVGrid(columns: gridItems, spacing: 20) {
                                 let pokemons = viewModel.allPokemons
                                 ForEach(pokemons.indices, id: \.self) { index in
-                                    PokemonBasicView(pokemon: pokemons[index], id: index + 1, width: pokemonWidth)
+                                    PokemonView(pokemon: pokemons[index], id: index + 1, width: pokemonWidth)
                                         .scrollTransition { content, phase in
                                             content
                                                 .opacity(phase.isIdentity ? 1 : 0.4)
@@ -70,7 +74,7 @@ struct AllPokemonsView: View {
                             LazyVGrid(columns: gridItems, spacing: 20) {
                                 if search {
                                     if let pokemon = viewModel.pokemonFound {
-                                        SinglePokemonListView(pokemon: pokemon, width: pokemonWidth)
+                                        SinglePokemonListView(pokemon: pokemon, width: pokemonWidth, shouldShowTrash: false)
                                     } else {
                                         if couldntFindPokemon || (!viewModel.isWaitingSinglePokemon && viewModel.pokemonFound == nil) {
                                             Text("couldntFindPokemon")
@@ -87,7 +91,7 @@ struct AllPokemonsView: View {
                                     } else {
                                         ForEach(allPokemons.indices, id: \.self) { index in
                                             if filteredPokemons.contains(allPokemons[index]) {
-                                                PokemonSearchView(pokemon: allPokemons[index], id: index + 1, width: pokemonWidth)
+                                                SinglePokemonListView(pokemonId: index + 1, pokemonName: allPokemons[index].name, width: pokemonWidth)
                                             }
                                         }
                                     }

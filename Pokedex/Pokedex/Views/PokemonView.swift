@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PokemonBasicView: View {
+struct PokemonView: View {
     @State private var image: Image?
     var pokemon: Pokemon?
     var id: Int
@@ -62,5 +62,5 @@ struct PokemonBasicView: View {
 }
 
 #Preview {
-    PokemonBasicView(pokemon: Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 150)
+    PokemonView(pokemon: Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 150)
 }

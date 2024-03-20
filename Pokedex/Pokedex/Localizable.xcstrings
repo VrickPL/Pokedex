@@ -134,6 +134,38 @@
         }
       }
     },
+    "click_pokemon_tip_message" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click Pokemon to see more info about him."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naciśnij Pokemona, aby zobaczyć o nim więcej informacji."
+          }
+        }
+      }
+    },
+    "click_pokemon_tip_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click Pokemon"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naciśnij Pokemona"
+          }
+        }
+      }
+    },
     "couldntFindPokemon" : {
       "localizations" : {
         "en" : {

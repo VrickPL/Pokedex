@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct PokedexApp: App {
@@ -17,6 +18,11 @@ struct PokedexApp: App {
             SplashScreenView()
                 .preferredColorScheme(selectedTheme.colorScheme)
                 .environment(\.locale, selectedLanguage.locale)
+                .task {
+                    try? Tips.configure([
+                        .datastoreLocation(.applicationDefault)
+                    ])
+                }
         }
     }
 }
