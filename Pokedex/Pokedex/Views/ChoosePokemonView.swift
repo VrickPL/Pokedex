@@ -13,7 +13,7 @@ struct ChoosePokemonView: View {
     
     @State private var couldntUpdatePokemons = false
     @State private var couldntFindPokemon = false
-    
+
     init() {
         UINavigationBar.appearance().barTintColor = UIColor(Color("BackgroundColor"))
     }
@@ -28,7 +28,11 @@ struct ChoosePokemonView: View {
                                 .foregroundStyle(.red)
                                 .padding()
                         } else {
-                            LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
+                            HStack {
+                                Spacer()
+                                LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
+                                Spacer()
+                            }
                         }
                     } else {
                         if viewModel.searchTerm.isEmpty {
@@ -66,7 +70,7 @@ struct ChoosePokemonView: View {
                             LazyVGrid(columns: gridItems, spacing: 20) {
                                 if search {
                                     if let pokemon = viewModel.pokemonFound {
-                                        SinglePokemonSearchView(pokemon: pokemon, width: pokemonWidth)
+                                        SinglePokemonListView(pokemon: pokemon, width: pokemonWidth)
                                     } else {
                                         if couldntFindPokemon || (!viewModel.isWaitingSinglePokemon && viewModel.pokemonFound == nil) {
                                             Text("couldntFindPokemon")

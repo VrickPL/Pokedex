@@ -13,18 +13,21 @@ struct PokemonBasicView: View {
     @State var id: Int
     @State var width: CGFloat
     
+    @State var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
     
+    
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
 
     var body: some View {
         VStack {
             NavigationLink(destination: PokemonView(id: id, image: image)) {
                 VStack {
                     if let image = image {
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: width)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
                     } else {
                         LoadingView()
                     }
@@ -48,6 +51,12 @@ struct PokemonBasicView: View {
                 // TODO: show toast
                 self.couldntGetPokemonImage = true
             }
+        }
+        .task {
+                isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+        }
+        .onChange(of: favouritePokemons) {
+            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
         }
     }
 }

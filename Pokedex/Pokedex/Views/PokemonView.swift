@@ -11,9 +11,12 @@ struct PokemonView: View {
     @State var id: Int
     @State var image: Image?
     @State private var pokemon: Pokemon?
-    
+    @State var isInMyPokedex: Bool = false
+
     @State private var couldntGetPokemon = false
     @State private var couldntGetPokemonImage = false
+    
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
     
     init(id: Int, image: Image? = nil) {
         self.id = id
@@ -32,6 +35,9 @@ struct PokemonView: View {
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
+                .onAppear {
+                    self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+                }
             
             VStack {
                 if couldntGetPokemon {
@@ -41,10 +47,10 @@ struct PokemonView: View {
                     LoadingView()
                 } else {
                     if let image = image {
-                        PokemonImage(image: image, width: pokemonWidth)
+                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: pokemonWidth)
+                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
                     } else {
                         LoadingView()
                     }
@@ -62,6 +68,28 @@ struct PokemonView: View {
                         Text(LocalizedStringKey("height")).bold()
                         Text("\(pokemon!.height * 10)cm")
                         Spacer()
+                    }
+                    .padding(.top)
+                    .padding(.bottom)
+
+                    if isInMyPokedex {
+                        Button {
+                            FavouritePokemonsManager.shared.removePokemonId(id)
+                        } label: {
+                            Text("remove_from_pokeball")
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(10)
+                        }
+                    } else {
+                        Button {
+                            FavouritePokemonsManager.shared.addPokemonId(id)
+                        } label: {
+                            Text("catch_in_pokeball")
+                                .padding()
+                                .background(.white)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }
@@ -91,6 +119,9 @@ struct PokemonView: View {
                         self.couldntGetPokemonImage = true
                     }
                 }
+            }
+            .onChange(of: favouritePokemons) {
+                self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
             }
         }
     }

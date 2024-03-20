@@ -10,6 +10,13 @@ import SwiftUI
 struct PokemonImage: View {
     var image: Image?
     @State var width: CGFloat
+    var isInMyPokedex: Bool
+    
+    init(image: Image? = nil, width: CGFloat, isInMyPokedex: Bool) {
+        self.image = image
+        self.width = width
+        self.isInMyPokedex = isInMyPokedex
+    }
 
     var body: some View {
         ZStack {
@@ -32,11 +39,20 @@ struct PokemonImage: View {
                     .scaledToFit()
                     .frame(width: width)
             }
+            
+            if isInMyPokedex {
+                Image(.pokeball)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: width / 4)
+                    .offset(x: width * 25 / 64, y: -width * 25 / 64)
+            }
+            
         }
         .padding()
     }
 }
 
 #Preview {
-    PokemonImage(width: 100)
+    PokemonImage(image: nil, width: 100, isInMyPokedex: true)
 }
