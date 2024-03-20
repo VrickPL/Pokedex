@@ -14,6 +14,9 @@ struct AllPokemonsView: View {
     
     @State private var couldntUpdatePokemons = false
     @State private var couldntFindPokemon = false
+    
+    @State private var showToast = false
+    @State private var toastOptions: ToastOptions = .unexpectedError
 
     init() {
         UINavigationBar.appearance().barTintColor = UIColor(Color("BackgroundColor"))
@@ -122,11 +125,14 @@ struct AllPokemonsView: View {
                     } catch is PokemonError {
                         self.couldntFindPokemon = true
                     } catch {
-                        // unexpected
-                        // TODO: show toast
+                        self.toastOptions = .unexpectedError
+                        self.showToast = true
                         self.couldntFindPokemon = true
                     }
                 }
+            }
+            .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
             }
         }
     }
@@ -134,6 +140,9 @@ struct AllPokemonsView: View {
     private struct LoadingPokemonsView: View {
         @ObservedObject var viewModel: AllPokemonsViewModel
         @Binding var couldntUpdatePokemons: Bool
+        
+        @State private var showToast = false
+        @State private var toastOptions: ToastOptions = .unexpectedError
         
         var body: some View {
             LoadingView()
@@ -144,10 +153,13 @@ struct AllPokemonsView: View {
                     } catch is PokemonError {
                         self.couldntUpdatePokemons = true
                     } catch {
-                        // unexpected
-                        // TODO: show toast
+                        self.toastOptions = .unexpectedError
+                        self.showToast = true
                         self.couldntUpdatePokemons = true
                     }
+                }
+                .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                    ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
                 }
         }
     }

@@ -283,40 +283,6 @@
         }
       }
     },
-    "failed_add_pokemon" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed adding Pokemon to your Pokedex. Try again."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "NIe udało się dodać Pokemona do twojego Pokedexa. Spróbuj ponownie."
-          }
-        }
-      }
-    },
-    "failed_delete_pokemon" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed deleting Pokemon from your Pokedex.  Try again."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "NIe udało się usunąć Pokemona z twojego Pokedexa. Spróbuj ponownie."
-          }
-        }
-      }
-    },
     "favourite" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -600,6 +566,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spróbuj ponownie"
+          }
+        }
+      }
+    },
+    "unexpected_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexptected error. Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niespodziewany błąd. Spróbuj ponownie."
           }
         }
       }

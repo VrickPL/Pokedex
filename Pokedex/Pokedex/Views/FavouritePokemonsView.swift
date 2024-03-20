@@ -14,6 +14,9 @@ struct FavouritePokemonsView: View {
     @State private var isLoading = false
     private let width = UIScreen.main.bounds.width / 5
     
+    @State private var showToast = false
+    @State private var toastOptions: ToastOptions = .unexpectedError
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -49,6 +52,9 @@ struct FavouritePokemonsView: View {
             .onChange(of: favouritePokemonsStorage) {
                 tryUpdateFavouritePokemons()
             }
+            .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
         }
     }
 
@@ -60,10 +66,12 @@ struct FavouritePokemonsView: View {
                 self.favouritePokemons = try await FavouritePokemonsViewModel().getPokemons()
                 self.couldntUpdatePokemons = false
                 self.isLoading = false
-            } catch {
-                //TODO: Toast
+            } catch is PokemonError {
                 self.couldntUpdatePokemons = true
                 self.isLoading = false
+            } catch {
+                self.toastOptions = .unexpectedError
+                self.showToast = true
             }
         }
     }

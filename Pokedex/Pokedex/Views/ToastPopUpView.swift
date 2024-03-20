@@ -25,6 +25,17 @@ struct ToastPopUpView: View {
     }
 }
 
+func getToastConfig() -> SimpleToastOptions {
+    return SimpleToastOptions(
+        alignment: .top,
+        hideAfter: 2,
+        animation: .default,
+        modifierType: .slide,
+        dismissOnTap: true
+    )
+}
+
+
 #Preview {
     ToastPopUpView(text: "success_add_pokemon", color: .green)
 }
