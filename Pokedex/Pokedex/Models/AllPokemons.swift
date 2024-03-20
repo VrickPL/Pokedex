@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct PokemonsData: Codable {
+struct AllPokemons: Codable {
     let count: Int
-    let results: [PokemonBasic]
+    let results: [Pokemon]
     let next: String
 }

@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct SinglePokemonListView: View {
-    var pokemon: Pokemon
-    @State var width: CGFloat
-    @State var shouldShowTrash: Bool
-
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
     @State private var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
     @State private var image: Image?
-    
-    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
-    
-    init(pokemon: Pokemon, width: CGFloat, shouldShowTrash: Bool) {
+    var pokemon: DetailedPokemon
+    private var width: CGFloat
+    private var shouldShowTrash: Bool
+
+
+    init(pokemon: DetailedPokemon, width: CGFloat, shouldShowTrash: Bool) {
         self.pokemon = pokemon
         self.width = width
         self.shouldShowTrash = shouldShowTrash
@@ -28,19 +27,19 @@ struct SinglePokemonListView: View {
         }
     }
     
-    init(pokemon: Pokemon, width: CGFloat) {
+    init(pokemon: DetailedPokemon, width: CGFloat) {
         self.pokemon = pokemon
         self.width = width
         self.shouldShowTrash = false
         
         if isInMyPokedex == nil {
-            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
+            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
         }
     }
     
     var body: some View {
         VStack {
-            NavigationLink(destination: PokemonView(pokemon: pokemon, image: image)) {
+            NavigationLink(destination: DetailedPokemonView(pokemon: pokemon, image: image)) {
                 HStack {
                     if let image = image {
                         PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
@@ -86,7 +85,7 @@ struct SinglePokemonListView: View {
     
     private func fetchImage() async {
         do {
-            image = try await PokemonViewModel(id: pokemon.id).getPokemonImage()
+            self.image = try await DetailedPokemonViewModel(id: pokemon.id).getPokemonImage()
             self.couldntGetPokemonImage = false
         } catch is PokemonError {
             self.couldntGetPokemonImage = true

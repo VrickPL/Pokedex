@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct FavouritePokemonsView: View {
-    @State private var favouritePokemons: [Pokemon] = []
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemonsStorage: String = ""
+    @State private var favouritePokemons: [DetailedPokemon] = []
     @State private var couldntUpdatePokemons = true
     @State private var isLoading = false
-    
-    @AppStorage(Keys.favouritePokemons) private var favouritePokemonsStorage: String = ""
+    private let width = UIScreen.main.bounds.width / 5
     
     var body: some View {
         NavigationView {
             ScrollView {
-                let width = UIScreen.main.bounds.width / 5
                 let gridItems = [GridItem(.flexible(minimum: width + 10))]
                 
                 LazyVGrid(columns: gridItems, spacing: 20) {

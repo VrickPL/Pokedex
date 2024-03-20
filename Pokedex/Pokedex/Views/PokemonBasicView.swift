@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PokemonBasicView: View {
     @State private var image: Image?
-    @State var pokemon: PokemonBasic?
-    @State var id: Int
-    @State var width: CGFloat
+    var pokemon: Pokemon?
+    var id: Int
+    var width: CGFloat
     
     @State var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
@@ -21,7 +21,7 @@ struct PokemonBasicView: View {
 
     var body: some View {
         VStack {
-            NavigationLink(destination: PokemonView(id: id, image: image)) {
+            NavigationLink(destination: DetailedPokemonView(id: id, image: image)) {
                 VStack {
                     if let image = image {
                         PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
@@ -42,7 +42,7 @@ struct PokemonBasicView: View {
         }
         .task {
             do {
-                image = try await PokemonViewModel(id: id).getPokemonImage()
+                image = try await DetailedPokemonViewModel(id: id).getPokemonImage()
                 self.couldntGetPokemonImage = false
             } catch is PokemonError {
                 self.couldntGetPokemonImage = true
@@ -53,14 +53,14 @@ struct PokemonBasicView: View {
             }
         }
         .task {
-                isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
         }
         .onChange(of: favouritePokemons) {
-            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
         }
     }
 }
 
 #Preview {
-    PokemonBasicView(pokemon: PokemonBasic(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 150)
+    PokemonBasicView(pokemon: Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 150)
 }

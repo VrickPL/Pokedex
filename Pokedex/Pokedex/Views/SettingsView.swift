@@ -60,13 +60,6 @@ struct SettingsView: View {
     }
 }
 
-struct Keys {
-    static let selectedLanguageKey = "selectedLanguage"
-    static let selectedThemeKey = "selectedTheme"
-    static let searchKey = "searchBool"
-    static let favouritePokemons = "FavouritePokemons"
-}
-
 #Preview {
     SettingsView()
 }

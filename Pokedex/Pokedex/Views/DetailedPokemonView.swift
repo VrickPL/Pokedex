@@ -7,29 +7,27 @@
 
 import SwiftUI
 
-struct PokemonView: View {
-    @State var id: Int
-    @State var image: Image?
-    @State private var pokemon: Pokemon?
-    @State var isInMyPokedex: Bool = false
-
+struct DetailedPokemonView: View {
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
+    @State private var image: Image?
+    @State private var pokemon: DetailedPokemon?
+    @State private var isInMyPokedex: Bool = false
     @State private var couldntGetPokemon = false
     @State private var couldntGetPokemonImage = false
-    
-    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
+    private var id: Int
+    private let pokemonWidth = UIScreen.main.bounds.width / 2
     
     init(id: Int, image: Image? = nil) {
         self.id = id
         self.image = image
     }
     
-    init(pokemon: Pokemon, image: Image?) {
+    init(pokemon: DetailedPokemon, image: Image?) {
         self.id = pokemon.id
         self.image = image
         self.pokemon = pokemon
     }
-    
-    private let pokemonWidth = UIScreen.main.bounds.width / 2
+
 
     var body: some View {
         ZStack {
@@ -96,7 +94,7 @@ struct PokemonView: View {
             .padding()
             .task {
                 do {
-                    pokemon = try await PokemonViewModel(id: id).getPokemon()
+                    pokemon = try await DetailedPokemonViewModel(id: id).getPokemon()
                     self.couldntGetPokemon = false
                 } catch is PokemonError {
                     self.couldntGetPokemon = true
@@ -109,7 +107,7 @@ struct PokemonView: View {
             .task {
                 if image == nil {
                     do {
-                        image = try await PokemonViewModel(id: id).getPokemonImage()
+                        self.image = try await DetailedPokemonViewModel(id: id).getPokemonImage()
                         self.couldntGetPokemonImage = false
                     } catch is PokemonError {
                         self.couldntGetPokemonImage = true
@@ -128,5 +126,5 @@ struct PokemonView: View {
 }
 
 #Preview {
-    PokemonView(id: 400)
+    DetailedPokemonView(id: 400)
 }

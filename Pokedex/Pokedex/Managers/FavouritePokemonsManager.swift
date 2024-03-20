@@ -23,10 +23,9 @@ class FavouritePokemonsManager {
       }
     
     func removePokemonId(_ id: Int) {
-        let idString = "\(id)"
         var ids = favouritePokemons.components(separatedBy: ";")
         
-        if let index = ids.firstIndex(of: idString) {
+        if let index = ids.firstIndex(of: "\(id)") {
             ids.remove(at: index)
             favouritePokemons = ids.joined(separator: ";")
         }

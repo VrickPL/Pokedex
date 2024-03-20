@@ -9,14 +9,9 @@ import SwiftUI
 
 struct PokemonImage: View {
     var image: Image?
-    @State var width: CGFloat
+    var width: CGFloat
     var isInMyPokedex: Bool
-    
-    init(image: Image? = nil, width: CGFloat, isInMyPokedex: Bool) {
-        self.image = image
-        self.width = width
-        self.isInMyPokedex = isInMyPokedex
-    }
+
 
     var body: some View {
         ZStack {

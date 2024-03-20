@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ChoosePokemonView: View {
+struct AllPokemonsView: View {
     @AppStorage(Keys.searchKey) private var search = true
-    @ObservedObject private var viewModel = ChoosePokemonViewModel()
+    @ObservedObject private var viewModel = AllPokemonsViewModel()
     
     @State private var couldntUpdatePokemons = false
     @State private var couldntFindPokemon = false
@@ -22,7 +22,7 @@ struct ChoosePokemonView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    if viewModel.results.isEmpty {
+                    if viewModel.allPokemons.isEmpty {
                         if couldntUpdatePokemons && !viewModel.isWaitingPokemons {
                             Text("couldntUpdatePokemons")
                                 .foregroundStyle(.red)
@@ -40,7 +40,7 @@ struct ChoosePokemonView: View {
                             let gridItems = [GridItem(.adaptive(minimum: pokemonWidth + 10))]
                             
                             LazyVGrid(columns: gridItems, spacing: 20) {
-                                let pokemons = viewModel.results
+                                let pokemons = viewModel.allPokemons
                                 ForEach(pokemons.indices, id: \.self) { index in
                                     PokemonBasicView(pokemon: pokemons[index], id: index + 1, width: pokemonWidth)
                                         .scrollTransition { content, phase in
@@ -62,7 +62,7 @@ struct ChoosePokemonView: View {
                             }
                         } else {
                             let pokemonWidth = UIScreen.main.bounds.width * 1 / 5
-                            let allPokemons = viewModel.results
+                            let allPokemons = viewModel.allPokemons
                             let filteredPokemons = viewModel.filteredPokemons
                             
                             let gridItems = [GridItem(.flexible(minimum: pokemonWidth + 10))]
@@ -128,7 +128,7 @@ struct ChoosePokemonView: View {
     }
     
     private struct LoadingPokemonsView: View {
-        @ObservedObject var viewModel: ChoosePokemonViewModel
+        @ObservedObject var viewModel: AllPokemonsViewModel
         @Binding var couldntUpdatePokemons: Bool
         
         var body: some View {
@@ -150,5 +150,5 @@ struct ChoosePokemonView: View {
 }
 
 #Preview {
-    ChoosePokemonView()
+    AllPokemonsView()
 }

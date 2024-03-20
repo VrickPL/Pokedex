@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-class PokemonViewModel {
-    var id: Int
+class DetailedPokemonViewModel {
+    private var id: Int
     
     init(id: Int) {
         self.id = id
     }
 
-    func getPokemon() async throws -> Pokemon {
+    func getPokemon() async throws -> DetailedPokemon {
         let endpoint = "https://pokeapi.co/api/v2/pokemon/\(id)"
         guard let url = URL(string: endpoint) else {
             throw PokemonError.invalidUrl
@@ -30,7 +30,7 @@ class PokemonViewModel {
         do {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode(Pokemon.self, from: data)
+            return try decoder.decode(DetailedPokemon.self, from: data)
         } catch {
             throw PokemonError.invalidData
         }

@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct PokemonSearchView: View {
-    @State private var image: Image?
-    @State var pokemon: PokemonBasic?
-    @State var id: Int
-    @State var width: CGFloat
-
-    @State var isInMyPokedex = false
-    @State private var couldntGetPokemonImage = false
-    
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
+    @State private var image: Image?
+    @State private var isInMyPokedex = false
+    @State private var couldntGetPokemonImage = false
+    private var pokemon: Pokemon?
+    private var id: Int
+    private var width: CGFloat
     
     
-    init(image: Image? = nil, pokemon: PokemonBasic? = nil, id: Int, width: CGFloat) {
+    init(image: Image? = nil, pokemon: Pokemon? = nil, id: Int, width: CGFloat) {
         self.image = image
         self.pokemon = pokemon
         self.id = id
@@ -28,7 +26,7 @@ struct PokemonSearchView: View {
 
     var body: some View {
         VStack {
-            NavigationLink(destination: PokemonView(id: id, image: image)) {
+            NavigationLink(destination: DetailedPokemonView(id: id, image: image)) {
                 HStack {
                     if let image = image {
                         PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
@@ -49,7 +47,7 @@ struct PokemonSearchView: View {
         }
         .task {
             do {
-                image = try await PokemonViewModel(id: id).getPokemonImage()
+                self.image = try await DetailedPokemonViewModel(id: id).getPokemonImage()
                 self.couldntGetPokemonImage = false
             } catch is PokemonError {
                 self.couldntGetPokemonImage = true
@@ -60,11 +58,11 @@ struct PokemonSearchView: View {
             }
         }
         .onChange(of: favouritePokemons) {
-            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
         }
     }
 }
 
 #Preview {
-    PokemonSearchView(pokemon: PokemonBasic(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 80)
+    PokemonSearchView(pokemon: Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/"), id: 1, width: 80)
 }

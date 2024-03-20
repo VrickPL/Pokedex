@@ -11,7 +11,7 @@ struct ToolbarView: View {
     var body: some View {
         TabView {
             Group {
-                ChoosePokemonView()
+                AllPokemonsView()
                     .tabItem {
                         Image(systemName: "house")
                         Text("APP_NAME")

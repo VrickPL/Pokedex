@@ -7,19 +7,19 @@
 
 import Foundation
 
-class ChoosePokemonViewModel: ObservableObject {
+class AllPokemonsViewModel: ObservableObject {
     @Published var isWaitingPokemons: Bool = false
     @Published var isWaitingSinglePokemon: Bool = false
-    @Published var results: [PokemonBasic] = []
-    var maxCount: Int = 21
+    @Published var allPokemons: [Pokemon] = []
+    private var maxCount: Int = 21
+    private var myCount: Int = 0
     var next: String = ""
-    var myCount: Int = 0
     
     @Published var searchTerm: String = ""
-    var filteredPokemons: [PokemonBasic] {
-        return results.filter{ $0.name.localizedCaseInsensitiveContains(searchTerm) }
+    var filteredPokemons: [Pokemon] {
+        return allPokemons.filter{ $0.name.localizedCaseInsensitiveContains(searchTerm) }
     }
-    @Published var pokemonFound: Pokemon?
+    @Published var pokemonFound: DetailedPokemon?
     
     private var offset: Int = 0
     private var limit: Int = 20
@@ -40,13 +40,13 @@ class ChoosePokemonViewModel: ObservableObject {
                     do {
                         let decoder = JSONDecoder()
                         decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let myServiceResponse = try decoder.decode(PokemonsData.self, from: data!)
+                        let myServiceResponse = try decoder.decode(AllPokemons.self, from: data!)
                         DispatchQueue.main.async {
                             if myServiceResponse.results.isEmpty {
                                 errorToThrow = PokemonError.couldntFindPokemon
                             }
                             
-                            self.results.append(contentsOf: myServiceResponse.results)
+                            self.allPokemons.append(contentsOf: myServiceResponse.results)
                             self.maxCount = myServiceResponse.count
                             self.next = myServiceResponse.next
                             self.myCount += myServiceResponse.results.count
@@ -90,7 +90,7 @@ class ChoosePokemonViewModel: ObservableObject {
                     do {
                         let decoder = JSONDecoder()
                         decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let myServiceResponse = try decoder.decode(Pokemon.self, from: data!)
+                        let myServiceResponse = try decoder.decode(DetailedPokemon.self, from: data!)
                         DispatchQueue.main.async {
                             self.pokemonFound = myServiceResponse
                             self.isWaitingSinglePokemon = false
