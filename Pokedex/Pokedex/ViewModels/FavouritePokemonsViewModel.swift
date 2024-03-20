@@ -6,14 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 class FavouritePokemonsViewModel {
-    var ids: [Int] = FavouritePokemonsManager.shared.pokemonsIds
-    
     func getPokemons() async throws -> [Pokemon] {
         var pokemons: [Pokemon] = []
         
-        for id in ids{
+        for id in FavouritePokemonsManager.shared.getPokemonsIds() {
             pokemons.append(try await PokemonViewModel(id: id).getPokemon())
         }
         

@@ -13,7 +13,7 @@ struct ChoosePokemonView: View {
     
     @State private var couldntUpdatePokemons = false
     @State private var couldntFindPokemon = false
-    
+
     init() {
         UINavigationBar.appearance().barTintColor = UIColor(Color("BackgroundColor"))
     }

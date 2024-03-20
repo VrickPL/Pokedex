@@ -6,51 +6,42 @@
 //
 
 import Foundation
+import SwiftUI
 
 class FavouritePokemonsManager {
     static let shared = FavouritePokemonsManager()
-    
-    private var pokemonsIdsData: Data {
-        get {
-            return UserDefaults.standard.data(forKey: "PokemonsIdsData") ?? Data()
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "PokemonsIdsData")
-        }
-    }
-    
-    var pokemonsIds: [Int] {
-        get {
-            if let decodedIntArray = try? JSONDecoder().decode([Int].self, from: pokemonsIdsData) {
-                return decodedIntArray
-            }
-            return []
-        }
-        set {
-            if let encodedIntArray = try? JSONEncoder().encode(newValue) {
-                pokemonsIdsData = encodedIntArray
-            }
-        }
-    }
-    
-    private init() {}
+    init() {}
+
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
     
     func addPokemonId(_ id: Int) {
-        var updatedIds = pokemonsIds
-        updatedIds.append(id)
-        pokemonsIds = updatedIds
-    }
+          if favouritePokemons.isEmpty {
+              favouritePokemons.append("\(id)")
+          } else {
+              favouritePokemons.append(";\(id)")
+          }
+      }
     
     func removePokemonId(_ id: Int) {
-        var updatedIds = pokemonsIds
-        if let index = updatedIds.firstIndex(of: id) {
-            updatedIds.remove(at: index)
-            pokemonsIds = updatedIds
+        let idString = "\(id)"
+        var ids = favouritePokemons.components(separatedBy: ";")
+        
+        if let index = ids.firstIndex(of: idString) {
+            ids.remove(at: index)
+            favouritePokemons = ids.joined(separator: ";")
         }
     }
+
     
-    func isPokemonInFavourites(_ id: Int) -> Bool {
-        return pokemonsIds.contains(id)
+    func getPokemonsIds() -> [Int] {
+        if favouritePokemons.isEmpty {
+            return []
+        }
+
+        return favouritePokemons.components(separatedBy: ";").compactMap { Int($0) }
+    }
+    
+    func checkIfIsSaved(_ id: Int) -> Bool {
+        return getPokemonsIds().contains(id)
     }
 }
-

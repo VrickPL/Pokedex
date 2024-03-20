@@ -8,29 +8,54 @@
 import SwiftUI
 
 struct SinglePokemonListView: View {
-    @State private var image: Image?
-    @State var pokemon: Pokemon
+    var pokemon: Pokemon
     @State var width: CGFloat
-    @State var shouldShowTrash: Bool = false
-    
+    @State var shouldShowTrash: Bool
+
+    @State private var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
+    @State private var image: Image?
+    
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
+    
+    init(pokemon: Pokemon, width: CGFloat, shouldShowTrash: Bool) {
+        self.pokemon = pokemon
+        self.width = width
+        self.shouldShowTrash = shouldShowTrash
+        
+        if isInMyPokedex == nil {
+            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
+        }
+    }
+    
+    init(pokemon: Pokemon, width: CGFloat) {
+        self.pokemon = pokemon
+        self.width = width
+        self.shouldShowTrash = false
+        
+        if isInMyPokedex == nil {
+            isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
+        }
+    }
     
     var body: some View {
         VStack {
             NavigationLink(destination: PokemonView(pokemon: pokemon, image: image)) {
                 HStack {
-                    let isInMyPokedex = FavouritePokemonsManager.shared.isPokemonInFavourites(pokemon.id)
                     if let image = image {
-                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
                     } else if couldntGetPokemonImage {
                         let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex)
+                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
                     } else {
                         LoadingView()
                     }
                     Text(pokemon.name.capitalized)
                         .font(.custom("PressStart2P-Regular", size: 16))
                         .foregroundStyle(Color("PokemonTextColor"))
+                        .onAppear {
+                            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
+                        }
                     
                     Spacer()
                     
@@ -49,16 +74,26 @@ struct SinglePokemonListView: View {
             }
         }
         .task {
-            do {
-                image = try await PokemonViewModel(id: pokemon.id).getPokemonImage()
-                self.couldntGetPokemonImage = false
-            } catch is PokemonError {
-                self.couldntGetPokemonImage = true
-            } catch {
-                // unexpected
-                // TODO: show toast
-                self.couldntGetPokemonImage = true
+            await fetchImage()
+        }
+        .onChange(of: favouritePokemons) {
+            self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(pokemon.id)
+            Task {
+                await fetchImage()
             }
+        }
+    }
+    
+    private func fetchImage() async {
+        do {
+            image = try await PokemonViewModel(id: pokemon.id).getPokemonImage()
+            self.couldntGetPokemonImage = false
+        } catch is PokemonError {
+            self.couldntGetPokemonImage = true
+        } catch {
+            // unexpected
+            // TODO: show toast
+            self.couldntGetPokemonImage = true
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct PokemonImage: View {
     var image: Image?
     @State var width: CGFloat
-    @State var isInMyPokedex: Bool
+    var isInMyPokedex: Bool
     
     init(image: Image? = nil, width: CGFloat, isInMyPokedex: Bool) {
         self.image = image
@@ -46,7 +46,6 @@ struct PokemonImage: View {
                     .scaledToFit()
                     .frame(width: width / 4)
                     .offset(x: width * 25 / 64, y: -width * 25 / 64)
-                
             }
             
         }

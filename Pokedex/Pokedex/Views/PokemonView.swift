@@ -11,22 +11,22 @@ struct PokemonView: View {
     @State var id: Int
     @State var image: Image?
     @State private var pokemon: Pokemon?
-    @State var isInMyPokedex: Bool
-    
+    @State var isInMyPokedex: Bool = false
+
     @State private var couldntGetPokemon = false
     @State private var couldntGetPokemonImage = false
+    
+    @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
     
     init(id: Int, image: Image? = nil) {
         self.id = id
         self.image = image
-        self.isInMyPokedex = FavouritePokemonsManager.shared.isPokemonInFavourites(id)
     }
     
     init(pokemon: Pokemon, image: Image?) {
         self.id = pokemon.id
         self.image = image
         self.pokemon = pokemon
-        self.isInMyPokedex = FavouritePokemonsManager.shared.isPokemonInFavourites(pokemon.id)
     }
     
     private let pokemonWidth = UIScreen.main.bounds.width / 2
@@ -35,6 +35,9 @@ struct PokemonView: View {
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
+                .onAppear {
+                    self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
+                }
             
             VStack {
                 if couldntGetPokemon {
@@ -71,12 +74,7 @@ struct PokemonView: View {
 
                     if isInMyPokedex {
                         Button {
-                            if let pokemon = pokemon {
-                                FavouritePokemonsManager.shared.addPokemonId(pokemon.id)
-                                isInMyPokedex.toggle()
-                            } else {
-                                //TODO show toast
-                            }
+                            FavouritePokemonsManager.shared.removePokemonId(id)
                         } label: {
                             Text("remove_from_pokeball")
                                 .padding()
@@ -85,12 +83,7 @@ struct PokemonView: View {
                         }
                     } else {
                         Button {
-                            if let pokemon = pokemon {
-                                FavouritePokemonsManager.shared.removePokemonId(pokemon.id)
-                                isInMyPokedex.toggle()
-                            } else {
-                                //TODO show toast
-                            }
+                            FavouritePokemonsManager.shared.addPokemonId(id)
                         } label: {
                             Text("catch_in_pokeball")
                                 .padding()
@@ -126,6 +119,9 @@ struct PokemonView: View {
                         self.couldntGetPokemonImage = true
                     }
                 }
+            }
+            .onChange(of: favouritePokemons) {
+                self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
             }
         }
     }
