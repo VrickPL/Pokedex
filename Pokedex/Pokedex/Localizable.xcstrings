@@ -283,6 +283,40 @@
         }
       }
     },
+    "failed_add_pokemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed adding Pokemon to your Pokedex. Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NIe udało się dodać Pokemona do twojego Pokedexa. Spróbuj ponownie."
+          }
+        }
+      }
+    },
+    "failed_delete_pokemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed deleting Pokemon from your Pokedex.  Try again."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NIe udało się usunąć Pokemona z twojego Pokedexa. Spróbuj ponownie."
+          }
+        }
+      }
+    },
     "favourite" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -498,6 +532,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ustawienia"
+          }
+        }
+      }
+    },
+    "success_add_pokemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Successfully added Pokemon to your Pokedex!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodano Pokemona do twojego Pokedexa!"
+          }
+        }
+      }
+    },
+    "success_delete_pokemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Successfully deleted Pokemon from your Pokedex"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usunięto Pokemona z twojego Pokedexa."
           }
         }
       }

@@ -11,6 +11,8 @@
 		7435B5872BAB09C80066C58B /* FavouritePokemonsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7435B5862BAB09C80066C58B /* FavouritePokemonsManager.swift */; };
 		7473B0D12BAB8DC1000C0D70 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D02BAB8DC1000C0D70 /* Keys.swift */; };
 		7473B0D62BAB914D000C0D70 /* ClickPokemonTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */; };
+		7473B0D92BAB9F61000C0D70 /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 7473B0D82BAB9F61000C0D70 /* SimpleToast */; };
+		7473B0DB2BAB9FE6000C0D70 /* ToastPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */; };
 		74BE50AB2BA85F0E008B10FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE50AA2BA85F0E008B10FD /* Theme.swift */; };
 		74BE50AD2BA86413008B10FD /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE50AC2BA86413008B10FD /* Language.swift */; };
 		74C556F22BA60606009E4CA4 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C556F12BA60606009E4CA4 /* PokedexApp.swift */; };
@@ -42,6 +44,7 @@
 		7435B5862BAB09C80066C58B /* FavouritePokemonsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePokemonsManager.swift; sourceTree = "<group>"; };
 		7473B0D02BAB8DC1000C0D70 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickPokemonTip.swift; sourceTree = "<group>"; };
+		7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPopUpView.swift; sourceTree = "<group>"; };
 		74BE50AA2BA85F0E008B10FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		74BE50AC2BA86413008B10FD /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		74C556EE2BA60606009E4CA4 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7473B0D92BAB9F61000C0D70 /* SimpleToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +169,7 @@
 				74C557202BA63F8A009E4CA4 /* PokemonImage.swift */,
 				74C5572F2BA79948009E4CA4 /* ToolbarView.swift */,
 				74C557332BA7997B009E4CA4 /* SettingsView.swift */,
+				7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +226,9 @@
 			dependencies = (
 			);
 			name = Pokedex;
+			packageProductDependencies = (
+				7473B0D82BAB9F61000C0D70 /* SimpleToast */,
+			);
 			productName = Pokedex;
 			productReference = 74C556EE2BA60606009E4CA4 /* Pokedex.app */;
 			productType = "com.apple.product-type.application";
@@ -250,6 +258,9 @@
 				pl,
 			);
 			mainGroup = 74C556E52BA60606009E4CA4;
+			packageReferences = (
+				7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */,
+			);
 			productRefGroup = 74C556EF2BA60606009E4CA4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -302,6 +313,7 @@
 				74C557192BA62833009E4CA4 /* LoadingView.swift in Sources */,
 				74C5571F2BA62A65009E4CA4 /* AllPokemonsView.swift in Sources */,
 				74BE50AD2BA86413008B10FD /* Language.swift in Sources */,
+				7473B0DB2BAB9FE6000C0D70 /* ToastPopUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +521,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanzaru/SimpleToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7473B0D82BAB9F61000C0D70 /* SimpleToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */;
+			productName = SimpleToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 74C556E62BA60606009E4CA4 /* Project object */;
 }
