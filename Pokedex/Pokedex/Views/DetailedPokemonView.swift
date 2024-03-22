@@ -23,6 +23,8 @@ struct DetailedPokemonView: View {
     @State private var showToastDelete = false
     @State private var toastOptions: ToastOptions = .successAddPokemon
     
+    @State private var isShowingDescription: Bool = false
+    
     init(id: Int) {
         self.id = id
     }
@@ -49,27 +51,88 @@ struct DetailedPokemonView: View {
                                 .scaledToFit()
                                 .padding()
                         } else if couldntGetPokemonImage {
-                            PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
+                            PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
                         } else {
                             LoadingView()
                         }
                         
-                        Text(pokemon!.name.capitalized)
-                            .font(.custom("PressStart2P-Regular", size: 18))
-                            .padding(.bottom)
+                        HStack {
+                            if isInMyPokedex {
+                                Image(.pokeball)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: UIScreen.main.bounds.width / 15)
+                                    .padding(.bottom)
+                            }
+                            Text(pokemon!.name.capitalized)
+                                .font(.custom("PressStart2P-Regular", size: 18))
+                                .padding(.bottom)
+                            if isInMyPokedex {
+                                Image(.pokeball)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: UIScreen.main.bounds.width / 15)
+                                    .padding(.bottom)
+                            }
+                        }
                         
-                        HStack {
-                            Text(LocalizedStringKey("weight")).bold()
-                            Text("\(pokemon!.weight / 10)kg")
-                            Spacer()
+                        LazyVGrid(columns: [GridItem(.flexible(minimum: 100)), GridItem(.flexible(minimum: 100))]) {
+                            ForEach(pokemon!.types.indices, id: \.self) { index in
+                                if shouldPokemonTypeBeVisible(index) {
+                                    getTypeView(for: index)
+                                }
+                            }
                         }
                         HStack {
-                            Text(LocalizedStringKey("height")).bold()
-                            Text("\(pokemon!.height * 10)cm")
-                            Spacer()
+                            if isPokemonTypesCountOdd() {
+                                Spacer()
+                                getTypeView(for: pokemon!.types.count - 1)
+                                Spacer()
+                            }
                         }
-                        .padding(.top)
-                        .padding(.bottom)
+                        
+                        VStack {
+                            Button {
+                                isShowingDescription.toggle()
+                            } label: {
+                                HStack {
+                                    Text("description")
+                                        .bold()
+                                    Spacer()
+                                    Text(isShowingDescription ? "▲" : "▼")
+                                }
+                                .font(.title)
+                                .foregroundStyle(Color("ReversedColor"))
+                                .padding()
+                            }
+
+                            if isShowingDescription {
+                                ForEach(pokemon!.stats.indices, id: \.self) { index in
+                                    getSkillView(for: index)
+                                }
+                                HStack {
+                                    Text(LocalizedStringKey("weight")).bold()
+                                    Text("\(pokemon!.weight / 10)kg")
+                                    Spacer()
+                                }
+                                .padding(.leading)
+                                .padding(.top)
+                                HStack {
+                                    Text(LocalizedStringKey("height")).bold()
+                                    Text("\(pokemon!.height * 10)cm")
+                                    Spacer()
+                                }
+                                .padding()
+                            }
+                        }
+                        .background(Color("BackgroundColor"))
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color("ReversedColor"), lineWidth: 1)
+                        )
+                        .padding()
+                        
                         
                         if isInMyPokedex {
                             Button {
@@ -77,9 +140,14 @@ struct DetailedPokemonView: View {
                                 self.showToastDelete = true
                             } label: {
                                 Text("remove_from_pokeball")
+                                    .foregroundStyle(Color("ReversedColor"))
                                     .padding()
-                                    .background(.white)
+                                    .background(Color("BackgroundColor"))
                                     .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color("ReversedColor"), lineWidth: 1)
+                                    )
                             }
                         } else {
                             Button {
@@ -87,9 +155,14 @@ struct DetailedPokemonView: View {
                                 self.showToastAdd = true
                             } label: {
                                 Text("catch_in_pokeball")
+                                    .foregroundStyle(Color("ReversedColor"))
                                     .padding()
-                                    .background(.white)
+                                    .background(Color("BackgroundColor"))
                                     .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color("ReversedColor"), lineWidth: 1)
+                                    )
                             }
                         }
                     }
@@ -145,6 +218,22 @@ struct DetailedPokemonView: View {
         }
     }
     
+    private func isPokemonTypesCountOdd() -> Bool {
+        return pokemon!.types.count % 2 == 1
+    }
+    
+    private func shouldPokemonTypeBeVisible(_ index: Int) -> Bool {
+            if !isPokemonTypesCountOdd() {
+                return true
+            } else {
+                if pokemon!.types.count - 1 != index {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+    
     private func getBackgroundColor() -> Color {
         if couldntGetPokemon || pokemon == nil {
             return Color("BackgroundColor")
@@ -153,6 +242,35 @@ struct DetailedPokemonView: View {
         } else {
             return Color("BackgroundColor")
         }
+    }
+    
+    
+    private func getTypeView(for index: Int) -> some View {
+        ZStack {
+            Color(hex: pokemon!.getColorForType(index) ?? "#A8A77A")
+            
+            Text(LocalizedStringKey(pokemon!.types[index].type.name))
+                .bold()
+                .padding()
+        }
+        .background(Color(hex: pokemon!.getColorForType(index) ?? "#A8A77A"))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color("ReversedColor"), lineWidth: 1)
+        )
+        .padding()
+    }
+    
+    
+    private func getSkillView(for index: Int) -> some View {
+        HStack {
+            Text(LocalizedStringKey(pokemon!.stats[index].stat.name)).bold()
+            Text("\(pokemon!.stats[index].baseStat)")
+            Spacer()
+        }
+        .padding(.leading)
+        .padding(.top)
     }
 }
 

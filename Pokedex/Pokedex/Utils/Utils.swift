@@ -10,8 +10,7 @@ import SwiftUI
 
 extension Color {
     init(hex: String) {
-        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+        let hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
 
         var rgb: UInt64 = 0
 
