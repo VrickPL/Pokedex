@@ -1,6 +1,15 @@
 {
-  "originHash" : "7a1d4f7ade4c3f48042c7cfb1d64ff4605c7d67073a8b95172ba1ed265b35713",
+  "originHash" : "012a868542c62b703bebb985c89ba90d6267888bd5b0611e3b721516c5a72353",
   "pins" : [
+    {
+      "identity" : "cocoalumberjack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+      "state" : {
+        "revision" : "4b8714a7fb84d42393314ce897127b3939885ec3",
+        "version" : "3.8.5"
+      }
+    },
     {
       "identity" : "simpletoast",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,24 @@
       "state" : {
         "revision" : "8dbc2e7c33cda25c0b2efafd59716cb9820c83eb",
         "version" : "0.8.1"
+      }
+    },
+    {
+      "identity" : "svgkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SVGKit/SVGKit",
+      "state" : {
+        "revision" : "58152b9f7c85eab239160b36ffdfd364aa43d666",
+        "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
+        "version" : "1.5.4"
       }
     }
   ],

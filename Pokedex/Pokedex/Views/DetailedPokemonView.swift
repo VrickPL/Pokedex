@@ -23,14 +23,12 @@ struct DetailedPokemonView: View {
     @State private var showToastDelete = false
     @State private var toastOptions: ToastOptions = .successAddPokemon
     
-    init(id: Int, image: Image? = nil) {
+    init(id: Int) {
         self.id = id
-        self.image = image
     }
     
-    init(pokemon: DetailedPokemon, image: Image?) {
+    init(pokemon: DetailedPokemon) {
         self.id = pokemon.id
-        self.image = image
         self.pokemon = pokemon
     }
     
@@ -39,9 +37,6 @@ struct DetailedPokemonView: View {
         ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
-                .onAppear {
-                    self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
-                }
             
             VStack {
                 if couldntGetPokemon {
@@ -51,10 +46,12 @@ struct DetailedPokemonView: View {
                     LoadingView()
                 } else {
                     if let image = image {
-                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
                     } else if couldntGetPokemonImage {
-                        let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
+                        PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: isInMyPokedex)
                     } else {
                         LoadingView()
                     }
@@ -102,8 +99,11 @@ struct DetailedPokemonView: View {
             .padding()
             .task {
                 do {
-                    pokemon = try await DetailedPokemonViewModel(id: id).getPokemon()
+                    if pokemon == nil {
+                        pokemon = try await DetailedPokemonViewModel(id: id).getPokemon()
+                    }
                     self.couldntGetPokemon = false
+                    self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
                 } catch is PokemonError {
                     self.couldntGetPokemon = true
                 } catch {
@@ -115,7 +115,7 @@ struct DetailedPokemonView: View {
             .task {
                 if image == nil {
                     do {
-                        self.image = try await DetailedPokemonViewModel(id: id).getPokemonImage()
+                        self.image = try await PokemonImageViewModel(id: id).getBigPokemonImage()
                         self.couldntGetPokemonImage = false
                     } catch is PokemonError {
                         self.couldntGetPokemonImage = true
@@ -147,5 +147,5 @@ struct DetailedPokemonView: View {
 }
 
 #Preview {
-    DetailedPokemonView(id: 400)
+    DetailedPokemonView(id: 91)
 }

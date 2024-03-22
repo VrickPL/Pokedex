@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7435B5812BAA56980066C58B /* FavouritePokemonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7435B5802BAA56980066C58B /* FavouritePokemonsViewModel.swift */; };
 		7435B5872BAB09C80066C58B /* FavouritePokemonsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7435B5862BAB09C80066C58B /* FavouritePokemonsManager.swift */; };
+		743916B32BAE0B480062A199 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 743916B22BAE0B480062A199 /* SVGKit */; };
+		743916B52BAE0B480062A199 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 743916B42BAE0B480062A199 /* SVGKitSwift */; };
+		743916B72BAE0E820062A199 /* PokemonImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743916B62BAE0E820062A199 /* PokemonImageViewModel.swift */; };
 		7473B0D12BAB8DC1000C0D70 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D02BAB8DC1000C0D70 /* Keys.swift */; };
 		7473B0D62BAB914D000C0D70 /* ClickPokemonTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */; };
 		7473B0D92BAB9F61000C0D70 /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 7473B0D82BAB9F61000C0D70 /* SimpleToast */; };
@@ -43,6 +46,7 @@
 /* Begin PBXFileReference section */
 		7435B5802BAA56980066C58B /* FavouritePokemonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePokemonsViewModel.swift; sourceTree = "<group>"; };
 		7435B5862BAB09C80066C58B /* FavouritePokemonsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePokemonsManager.swift; sourceTree = "<group>"; };
+		743916B62BAE0E820062A199 /* PokemonImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImageViewModel.swift; sourceTree = "<group>"; };
 		7473B0D02BAB8DC1000C0D70 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickPokemonTip.swift; sourceTree = "<group>"; };
 		7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPopUpView.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743916B52BAE0B480062A199 /* SVGKitSwift in Frameworks */,
+				743916B32BAE0B480062A199 /* SVGKit in Frameworks */,
 				7473B0D92BAB9F61000C0D70 /* SimpleToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,6 +196,7 @@
 				74C557112BA616F1009E4CA4 /* DetailedPokemonViewModel.swift */,
 				74C5571A2BA62967009E4CA4 /* AllPokemonsViewModel.swift */,
 				7435B5802BAA56980066C58B /* FavouritePokemonsViewModel.swift */,
+				743916B62BAE0E820062A199 /* PokemonImageViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -231,6 +238,8 @@
 			name = Pokedex;
 			packageProductDependencies = (
 				7473B0D82BAB9F61000C0D70 /* SimpleToast */,
+				743916B22BAE0B480062A199 /* SVGKit */,
+				743916B42BAE0B480062A199 /* SVGKitSwift */,
 			);
 			productName = Pokedex;
 			productReference = 74C556EE2BA60606009E4CA4 /* Pokedex.app */;
@@ -263,6 +272,7 @@
 			mainGroup = 74C556E52BA60606009E4CA4;
 			packageReferences = (
 				7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */,
+				743916B12BAE0B480062A199 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 74C556EF2BA60606009E4CA4 /* Products */;
 			projectDirPath = "";
@@ -302,6 +312,7 @@
 				74BE50AB2BA85F0E008B10FD /* Theme.swift in Sources */,
 				7473B0D62BAB914D000C0D70 /* ClickPokemonTip.swift in Sources */,
 				74C557212BA63F8A009E4CA4 /* PokemonImage.swift in Sources */,
+				743916B72BAE0E820062A199 /* PokemonImageViewModel.swift in Sources */,
 				74C5571D2BA629F0009E4CA4 /* AllPokemons.swift in Sources */,
 				74C5572B2BA77703009E4CA4 /* SinglePokemonListView.swift in Sources */,
 				74C556F42BA60606009E4CA4 /* ContentView.swift in Sources */,
@@ -527,6 +538,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		743916B12BAE0B480062A199 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sanzaru/SimpleToast";
@@ -538,6 +557,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		743916B22BAE0B480062A199 /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 743916B12BAE0B480062A199 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		743916B42BAE0B480062A199 /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 743916B12BAE0B480062A199 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
+		};
 		7473B0D82BAB9F61000C0D70 /* SimpleToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7473B0D72BAB9F61000C0D70 /* XCRemoteSwiftPackageReference "SimpleToast" */;

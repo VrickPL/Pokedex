@@ -46,7 +46,7 @@ struct SinglePokemonListView: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: DetailedPokemonView(id: pokemonId, image: image)) {
+            NavigationLink(destination: DetailedPokemonView(id: pokemonId)) {
                 HStack {
                     if let image = image {
                         PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
@@ -98,7 +98,7 @@ struct SinglePokemonListView: View {
     
     private func fetchImage() async {
         do {
-            self.image = try await DetailedPokemonViewModel(id: pokemonId).getPokemonImage()
+            self.image = try await PokemonImageViewModel(id: pokemonId).getSmallPokemonImage()
             self.couldntGetPokemonImage = false
         } catch is PokemonError {
             self.couldntGetPokemonImage = true
