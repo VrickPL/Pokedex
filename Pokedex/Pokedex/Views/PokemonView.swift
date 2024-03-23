@@ -16,21 +16,17 @@ struct PokemonView: View {
     @State var isInMyPokedex: Bool?
     @State private var couldntGetPokemonImage = false
     
-    @State private var showToast = false
-    @State private var toastOptions: ToastOptions = .unexpectedError
-    
     
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
 
     var body: some View {
         VStack {
-            NavigationLink(destination: DetailedPokemonView(id: id, image: image)) {
+            NavigationLink(destination: DetailedPokemonView(id: id)) {
                 VStack {
                     if let image = image {
                         PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
                     } else if couldntGetPokemonImage {
-                        let image = Image("PokemonWithoutImage")
-                        PokemonImage(image: image, width: width, isInMyPokedex: isInMyPokedex!)
+                        PokemonImage(image: nil, width: width, isInMyPokedex: isInMyPokedex!)
                     } else {
                         LoadingView()
                     }
@@ -45,24 +41,17 @@ struct PokemonView: View {
         }
         .task {
             do {
-                image = try await DetailedPokemonViewModel(id: id).getPokemonImage()
+                image = try await PokemonImageViewModel(id: id).getSmallPokemonImage()
                 self.couldntGetPokemonImage = false
             } catch is PokemonError {
                 self.couldntGetPokemonImage = true
-            } catch {
-                self.toastOptions = .unexpectedError
-                self.showToast = true
-                self.couldntGetPokemonImage = true
-            }
+            } catch { }
         }
         .task {
             self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
         }
         .onChange(of: favouritePokemons) {
             self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
-        }
-        .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
-            ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
         }
     }
 }
