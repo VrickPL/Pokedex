@@ -105,6 +105,22 @@ struct AllPokemonsView: View {
                 }
             }
             .searchable(text: $viewModel.searchTerm)
+            .refreshable {
+                viewModel.refreshData { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        if error is PokemonError {
+                            self.toastOptions = .couldNotUpdate
+                            self.showToast = true
+                        } else {
+                            self.toastOptions = .unexpectedError
+                            self.showToast = true
+                        }
+                    }
+                }
+            }
             .background(Color("BackgroundColor"))
             .navigationTitle("APP_NAME")
             .navigationBarTitleDisplayMode(.inline)

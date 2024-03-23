@@ -11,8 +11,6 @@ class AllPokemonsViewModel: ObservableObject {
     @Published var isWaitingPokemons: Bool = false
     @Published var isWaitingSinglePokemon: Bool = false
     @Published var allPokemons: [Pokemon] = []
-    private var maxCount: Int = 21
-    private var myCount: Int = 0
     var next: String = ""
     
     @Published var searchTerm: String = ""
@@ -47,9 +45,7 @@ class AllPokemonsViewModel: ObservableObject {
                             }
                             
                             self.allPokemons.append(contentsOf: myServiceResponse.results)
-                            self.maxCount = myServiceResponse.count
                             self.next = myServiceResponse.next
-                            self.myCount += myServiceResponse.results.count
                             self.isWaitingPokemons = false
                         }
                     } catch let exception {
@@ -123,6 +119,19 @@ class AllPokemonsViewModel: ObservableObject {
         }
 
         task.resume()
+    }
+
+    func refreshData(completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            let newViewModel = AllPokemonsViewModel()
+            try newViewModel.updatePokemons()
+            self.allPokemons = newViewModel.allPokemons
+            self.next = newViewModel.next
+            
+            completion(.success(()))
+        } catch {
+            completion(.failure(error))
+        }
     }
 }
 

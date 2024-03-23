@@ -107,6 +107,10 @@ struct DetailedPokemonView: View {
                             }
 
                             if isShowingDescription {
+                                Color("ReversedColor").frame(height: 1)
+                                    .padding(.leading)
+                                    .padding(.trailing)
+                                
                                 ForEach(pokemon!.stats.indices, id: \.self) { index in
                                     getSkillView(for: index)
                                 }

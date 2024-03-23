@@ -8,7 +8,6 @@
 import Foundation
 
 struct AllPokemons: Codable {
-    let count: Int
     let results: [Pokemon]
     let next: String
 }

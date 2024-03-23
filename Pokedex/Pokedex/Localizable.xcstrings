@@ -60,10 +60,24 @@
       }
     },
     "▲" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "▼" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "app_author" : {
       "extractionState" : "manual",
@@ -212,6 +226,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Naciśnij Pokemona"
+          }
+        }
+      }
+    },
+    "could_not_update" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't update Pokemons."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się zaktualizować Pokemonów."
           }
         }
       }
