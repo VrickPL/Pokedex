@@ -13,4 +13,5 @@ struct Keys {
     static let selectedThemeKey = "selectedTheme"
     static let searchKey = "searchBool"
     static let favouritePokemons = "FavouritePokemons"
+    static let wasTipPokemonDoubleTapShownBefore = "wasTipPokemonDoubleTapShownBefore"
 }

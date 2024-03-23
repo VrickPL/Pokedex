@@ -43,6 +43,7 @@
 		74C557302BA79948009E4CA4 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C5572F2BA79948009E4CA4 /* ToolbarView.swift */; };
 		74C557322BA7996C009E4CA4 /* FavouritePokemonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C557312BA7996C009E4CA4 /* FavouritePokemonsView.swift */; };
 		74C557342BA7997B009E4CA4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C557332BA7997B009E4CA4 /* SettingsView.swift */; };
+		74EF23322BAF1F540024236B /* PokemonDoubleTapTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EF23312BAF1F540024236B /* PokemonDoubleTapTip.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		74C5572F2BA79948009E4CA4 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		74C557312BA7996C009E4CA4 /* FavouritePokemonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePokemonsView.swift; sourceTree = "<group>"; };
 		74C557332BA7997B009E4CA4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		74EF23312BAF1F540024236B /* PokemonDoubleTapTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDoubleTapTip.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */,
+				74EF23312BAF1F540024236B /* PokemonDoubleTapTip.swift */,
 			);
 			path = Tips;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				74C557192BA62833009E4CA4 /* LoadingView.swift in Sources */,
 				74C5571F2BA62A65009E4CA4 /* AllPokemonsView.swift in Sources */,
 				74BE50AD2BA86413008B10FD /* Language.swift in Sources */,
+				74EF23322BAF1F540024236B /* PokemonDoubleTapTip.swift in Sources */,
 				7473B0DB2BAB9FE6000C0D70 /* ToastPopUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

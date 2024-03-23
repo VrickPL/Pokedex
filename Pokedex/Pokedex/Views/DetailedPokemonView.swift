@@ -10,6 +10,7 @@ import SimpleToast
 
 struct DetailedPokemonView: View {
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
+    @AppStorage(Keys.wasTipPokemonDoubleTapShownBefore) private var wasTipShownBefore: Bool = false
     @State private var image: Image?
     @State private var pokemon: DetailedPokemon?
     @State private var isInMyPokedex: Bool = false
@@ -125,18 +126,28 @@ struct DetailedPokemonView: View {
     
     private func getPokemonImage() -> some View {
         VStack {
-            if let image = image {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                    .onTapGesture(count: 2, perform: handleImageDoubleTap)
-                
-            } else if couldntGetPokemonImage {
-                PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
-                    .onTapGesture(count: 2, perform: handleImageDoubleTap)
+            let view = VStack {
+                if let image = image {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .onTapGesture(count: 2, perform: handleImageDoubleTap)
+                    
+                } else if couldntGetPokemonImage {
+                    PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
+                        .onTapGesture(count: 2, perform: handleImageDoubleTap)
+                } else {
+                    LoadingView()
+                }
+            }
+            
+            if !wasTipShownBefore {
+                view
+                    .popoverTip(PokemonDoubleTapTip(), arrowEdge: .top)
+                    .onDisappear{ wasTipShownBefore = true }
             } else {
-                LoadingView()
+                view
             }
         }
     }
