@@ -1,5 +1,5 @@
 //
-//  PokemonView.swift
+//  DetailedPokemonView.swift
 //  Pokedex
 //
 //  Created by Jan Kazubski on 16/03/2024.
@@ -47,146 +47,15 @@ struct DetailedPokemonView: View {
                     } else if pokemon == nil {
                         LoadingView()
                     } else {
-                        if let image = image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .padding()
-                                .onTapGesture(count: 2, perform: handleImageDoubleTap)
-                                
-                        } else if couldntGetPokemonImage {
-                            PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
-                                .onTapGesture(count: 2, perform: handleImageDoubleTap)
-                        } else {
-                            LoadingView()
-                        }
-
-
-                        HStack {
-                            if isImageDoubleClicked {
-                                PokeballAnimation()
-                                    .padding(.bottom)
-                            } else {
-                                if isInMyPokedex {
-                                    Image(.pokeball)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: PokeballAnimation.width)
-                                        .padding(.bottom)
-                                }
-                            }
-
-                            Text(pokemon!.name.capitalized)
-                                .font(.custom("PressStart2P-Regular", size: 18))
-                                .padding(.bottom)
-                            
-                            if isImageDoubleClicked {
-                                PokeballAnimation()
-                                    .padding(.bottom)
-                            } else {
-                                if isInMyPokedex {
-                                    Image(.pokeball)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: PokeballAnimation.width)
-                                        .padding(.bottom)
-                                }
-                            }
-                        }
+                        getPokemonImage()
                         
-                        LazyVGrid(columns: [GridItem(.flexible(minimum: 100)), GridItem(.flexible(minimum: 100))]) {
-                            ForEach(pokemon!.types.indices, id: \.self) { index in
-                                if shouldPokemonTypeBeVisible(index) {
-                                    getTypeView(for: index)
-                                }
-                            }
-                        }
-                        HStack {
-                            if isPokemonTypesCountOdd() {
-                                Spacer()
-                                getTypeView(for: pokemon!.types.count - 1)
-                                Spacer()
-                            }
-                        }
+                        getPokemonName()
                         
-                        VStack {
-                            Button {
-                                isShowingDescription.toggle()
-                            } label: {
-                                HStack {
-                                    Text("description")
-                                        .bold()
-                                    Spacer()
-                                    Text(isShowingDescription ? "▲" : "▼")
-                                }
-                                .font(.title)
-                                .foregroundStyle(Color("ReversedColor"))
-                                .padding()
-                            }
-
-                            if isShowingDescription {
-                                Color("ReversedColor").frame(height: 1)
-                                    .padding(.leading)
-                                    .padding(.trailing)
-                                
-                                ForEach(pokemon!.stats.indices, id: \.self) { index in
-                                    getSkillView(for: index)
-                                }
-                                HStack {
-                                    Text(LocalizedStringKey("weight")).bold()
-                                    Text("\(pokemon!.weight / 10)kg")
-                                    Spacer()
-                                }
-                                .padding(.leading)
-                                .padding(.top)
-                                HStack {
-                                    Text(LocalizedStringKey("height")).bold()
-                                    Text("\(pokemon!.height * 10)cm")
-                                    Spacer()
-                                }
-                                .padding()
-                            }
-                        }
-                        .background(Color("BackgroundColor"))
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color("ReversedColor"), lineWidth: 1)
-                        )
-                        .padding()
+                        getPokemonTypes()
                         
+                        getPokemonDescription()
                         
-                        if isInMyPokedex {
-                            Button {
-                                self.toastOptions = .successDeletePokemon
-                                self.showToastDelete = true
-                            } label: {
-                                Text("remove_from_pokeball")
-                                    .foregroundStyle(Color("ReversedColor"))
-                                    .padding()
-                                    .background(Color("BackgroundColor"))
-                                    .cornerRadius(10)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color("ReversedColor"), lineWidth: 1)
-                                    )
-                            }
-                        } else {
-                            Button {
-                                self.toastOptions = .successAddPokemon
-                                self.showToastAdd = true
-                            } label: {
-                                Text("catch_in_pokeball")
-                                    .foregroundStyle(Color("ReversedColor"))
-                                    .padding()
-                                    .background(Color("BackgroundColor"))
-                                    .cornerRadius(10)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color("ReversedColor"), lineWidth: 1)
-                                    )
-                            }
-                        }
+                        getFavouriteButton()
                     }
                 }
                 .padding()
@@ -240,22 +109,6 @@ struct DetailedPokemonView: View {
         }
     }
     
-    private func isPokemonTypesCountOdd() -> Bool {
-        return pokemon!.types.count % 2 == 1
-    }
-    
-    private func shouldPokemonTypeBeVisible(_ index: Int) -> Bool {
-            if !isPokemonTypesCountOdd() {
-                return true
-            } else {
-                if pokemon!.types.count - 1 != index {
-                    return true
-                } else {
-                    return false
-                }
-            }
-        }
-    
     private func getBackgroundColor() -> Color {
         if couldntGetPokemon || pokemon == nil {
             return Color("BackgroundColor")
@@ -266,6 +119,169 @@ struct DetailedPokemonView: View {
         }
     }
     
+    private func getPokemonImage() -> some View {
+        VStack {
+            if let image = image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .onTapGesture(count: 2, perform: handleImageDoubleTap)
+                
+            } else if couldntGetPokemonImage {
+                PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
+                    .onTapGesture(count: 2, perform: handleImageDoubleTap)
+            } else {
+                LoadingView()
+            }
+        }
+    }
+    
+    private func getPokemonName() -> some View {
+        HStack {
+            if isImageDoubleClicked {
+                PokeballAnimation()
+                    .padding(.bottom)
+            } else {
+                if isInMyPokedex {
+                    Image(.pokeball)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: PokeballAnimation.width)
+                        .padding(.bottom)
+                }
+            }
+            
+            Text(pokemon!.name.capitalized)
+                .font(.custom("PressStart2P-Regular", size: 18))
+                .padding(.bottom)
+            
+            if isImageDoubleClicked {
+                PokeballAnimation()
+                    .padding(.bottom)
+            } else {
+                if isInMyPokedex {
+                    Image(.pokeball)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: PokeballAnimation.width)
+                        .padding(.bottom)
+                }
+            }
+        }
+    }
+    
+    private func getPokemonTypes() -> some View {
+        VStack {
+            LazyVGrid(columns: [GridItem(.flexible(minimum: 100)), GridItem(.flexible(minimum: 100))]) {
+                ForEach(pokemon!.types.indices, id: \.self) { index in
+                    if shouldPokemonTypeBeVisible(index) {
+                        getTypeView(for: index)
+                    }
+                }
+            }
+            HStack {
+                if arePokemonTypesCountOdd() {
+                    Spacer()
+                    getTypeView(for: pokemon!.types.count - 1)
+                    Spacer()
+                }
+            }
+        }
+    }
+    
+    private func getPokemonDescription() -> some View {
+        VStack {
+            Button {
+                isShowingDescription.toggle()
+            } label: {
+                HStack {
+                    Text("description")
+                        .bold()
+                    Spacer()
+                    Text(isShowingDescription ? "▲" : "▼")
+                }
+                .font(.title)
+                .foregroundStyle(Color("ReversedColor"))
+                .padding()
+            }
+            
+            if isShowingDescription {
+                Color("ReversedColor").frame(height: 1)
+                    .padding(.leading)
+                    .padding(.trailing)
+                
+                ForEach(pokemon!.stats.indices, id: \.self) { index in
+                    getSkillView(for: index)
+                }
+                HStack {
+                    Text(LocalizedStringKey("weight")).bold()
+                    Text("\(pokemon!.weight / 10)kg")
+                    Spacer()
+                }
+                .padding(.leading)
+                .padding(.top)
+                HStack {
+                    Text(LocalizedStringKey("height")).bold()
+                    Text("\(pokemon!.height * 10)cm")
+                    Spacer()
+                }
+                .padding()
+            }
+        }
+        .background(Color("BackgroundColor"))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color("ReversedColor"), lineWidth: 1)
+        )
+        .padding()
+    }
+    
+    private func getFavouriteButton() -> some View {
+        if isInMyPokedex {
+            Button {
+                self.toastOptions = .successDeletePokemon
+                self.showToastDelete = true
+            } label: {
+                getFavouriteButtonView(for: "remove_from_pokeball")
+            }
+        } else {
+            Button {
+                self.toastOptions = .successAddPokemon
+                self.showToastAdd = true
+            } label: {
+                getFavouriteButtonView(for: "catch_in_pokeball")
+            }
+        }
+    }
+    
+    private func handleImageDoubleTap() {
+        if !FavouritePokemonsManager.shared.checkIfIsSaved(id) {
+            self.isImageDoubleClicked = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + PokeballAnimation.duration) {
+                FavouritePokemonsManager.shared.addPokemonId(id)
+                self.isImageDoubleClicked = false
+            }
+        }
+    }
+    
+    private func shouldPokemonTypeBeVisible(_ index: Int) -> Bool {
+        if !arePokemonTypesCountOdd() {
+            return true
+        } else {
+            if pokemon!.types.count - 1 != index {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    private func arePokemonTypesCountOdd() -> Bool {
+        return pokemon!.types.count % 2 == 1
+    }
     
     private func getTypeView(for index: Int) -> some View {
         ZStack {
@@ -284,7 +300,6 @@ struct DetailedPokemonView: View {
         .padding()
     }
     
-    
     private func getSkillView(for index: Int) -> some View {
         HStack {
             Text(LocalizedStringKey(pokemon!.stats[index].stat.name)).bold()
@@ -295,15 +310,16 @@ struct DetailedPokemonView: View {
         .padding(.top)
     }
     
-    private func handleImageDoubleTap() {
-        if !FavouritePokemonsManager.shared.checkIfIsSaved(id) {
-            self.isImageDoubleClicked = true
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + PokeballAnimation.duration) {
-                FavouritePokemonsManager.shared.addPokemonId(id)
-                self.isImageDoubleClicked = false
-            }
-        }
+    private func getFavouriteButtonView(for text: String) -> some View {
+        return Text(LocalizedStringKey(text))
+            .foregroundStyle(Color("ReversedColor"))
+            .padding()
+            .background(Color("BackgroundColor"))
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color("ReversedColor"), lineWidth: 1)
+            )
     }
 }
 

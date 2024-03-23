@@ -1,5 +1,5 @@
 //
-//  ChoosePokemonView.swift
+//  AllPokemonsView.swift
 //  Pokedex
 //
 //  Created by Jan Kazubski on 16/03/2024.
@@ -40,66 +40,9 @@ struct AllPokemonsView: View {
                         }
                     } else {
                         if viewModel.searchTerm.isEmpty {
-                            let pokemonWidth = UIScreen.main.bounds.width * 2 / 5
-                            let gridItems = [GridItem(.adaptive(minimum: pokemonWidth + 10))]
-                            TipView(ClickPokemonTip())
-                                .tipBackground(Color("PokemonBackgroundColor"))
-                                .padding()
-
-                            LazyVGrid(columns: gridItems, spacing: 20) {
-                                let pokemons = viewModel.allPokemons
-                                ForEach(pokemons.indices, id: \.self) { index in
-                                    PokemonView(pokemon: pokemons[index], id: index + 1, width: pokemonWidth)
-                                        .scrollTransition { content, phase in
-                                            content
-                                                .opacity(phase.isIdentity ? 1 : 0.4)
-                                        }
-                                }
-
-                                if !viewModel.next.isEmpty {
-                                    if couldntUpdatePokemons && !viewModel.isWaitingPokemons {
-                                        Text("couldntUpdatePokemons")
-                                            .foregroundStyle(.red)
-                                            .padding()
-                                    } else {
-                                        LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
-                                        LoadingView()
-                                    }
-                                }
-                            }
+                            getAllPokemonsView()
                         } else {
-                            let pokemonWidth = UIScreen.main.bounds.width * 1 / 5
-                            let allPokemons = viewModel.allPokemons
-                            let filteredPokemons = viewModel.filteredPokemons
-                            
-                            let gridItems = [GridItem(.flexible(minimum: pokemonWidth + 10))]
-                            
-                            LazyVGrid(columns: gridItems, spacing: 20) {
-                                if search {
-                                    if let pokemon = viewModel.pokemonFound {
-                                        SinglePokemonListView(pokemon: pokemon, width: pokemonWidth, shouldShowTrash: false)
-                                    } else {
-                                        if couldntFindPokemon || (!viewModel.isWaitingSinglePokemon && viewModel.pokemonFound == nil) {
-                                            Text("couldntFindPokemon")
-                                                .foregroundStyle(.red)
-                                                .padding()
-                                        } else {
-                                            LoadingView()
-                                        }
-                                    }
-                                } else {
-                                    if filteredPokemons.isEmpty {
-                                        Text("couldntFindPokemons")
-                                            .foregroundStyle(.red)
-                                    } else {
-                                        ForEach(allPokemons.indices, id: \.self) { index in
-                                            if filteredPokemons.contains(allPokemons[index]) {
-                                                SinglePokemonListView(pokemonId: index + 1, pokemonName: allPokemons[index].name, width: pokemonWidth)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            getSearchPokemonView()
                         }
                     }
                 }
@@ -177,6 +120,76 @@ struct AllPokemonsView: View {
                 .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
                     ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
                 }
+        }
+    }
+    
+    private func getAllPokemonsView() -> some View {
+        VStack {
+            let pokemonWidth = UIScreen.main.bounds.width * 2 / 5
+            let gridItems = [GridItem(.adaptive(minimum: pokemonWidth + 10))]
+            
+            TipView(ClickPokemonTip())
+                .tipBackground(Color("PokemonBackgroundColor"))
+                .padding()
+            
+            LazyVGrid(columns: gridItems, spacing: 20) {
+                let pokemons = viewModel.allPokemons
+                ForEach(pokemons.indices, id: \.self) { index in
+                    PokemonView(pokemon: pokemons[index], id: index + 1, width: pokemonWidth)
+                        .scrollTransition { content, phase in
+                            content
+                                .opacity(phase.isIdentity ? 1 : 0.4)
+                        }
+                }
+                
+                if !viewModel.next.isEmpty {
+                    if couldntUpdatePokemons && !viewModel.isWaitingPokemons {
+                        Text("couldntUpdatePokemons")
+                            .foregroundStyle(.red)
+                            .padding()
+                    } else {
+                        LoadingPokemonsView(viewModel: viewModel, couldntUpdatePokemons: $couldntUpdatePokemons)
+                        LoadingView()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getSearchPokemonView() -> some View {
+        VStack {
+            let pokemonWidth = UIScreen.main.bounds.width * 1 / 5
+            let allPokemons = viewModel.allPokemons
+            let filteredPokemons = viewModel.filteredPokemons
+            
+            let gridItems = [GridItem(.flexible(minimum: pokemonWidth + 10))]
+            
+            LazyVGrid(columns: gridItems, spacing: 20) {
+                if search {
+                    if let pokemon = viewModel.pokemonFound {
+                        SinglePokemonListView(pokemon: pokemon, width: pokemonWidth, shouldShowTrash: false)
+                    } else {
+                        if couldntFindPokemon || (!viewModel.isWaitingSinglePokemon && viewModel.pokemonFound == nil) {
+                            Text("couldntFindPokemon")
+                                .foregroundStyle(.red)
+                                .padding()
+                        } else {
+                            LoadingView()
+                        }
+                    }
+                } else {
+                    if filteredPokemons.isEmpty {
+                        Text("couldntFindPokemons")
+                            .foregroundStyle(.red)
+                    } else {
+                        ForEach(allPokemons.indices, id: \.self) { index in
+                            if filteredPokemons.contains(allPokemons[index]) {
+                                SinglePokemonListView(pokemonId: index + 1, pokemonName: allPokemons[index].name, width: pokemonWidth)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Pokemon.swift
+//  DetailedPokemon.swift
 //  Pokedex
 //
 //  Created by Jan Kazubski on 16/03/2024.
