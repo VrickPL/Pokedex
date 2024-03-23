@@ -91,21 +91,21 @@ struct DetailedPokemonView: View {
                 .onChange(of: favouritePokemons) {
                     self.isInMyPokedex = FavouritePokemonsManager.shared.checkIfIsSaved(id)
                 }
-                .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
-                    ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
-                }
-                .simpleToast(isPresented: $showToastAdd, options: getToastConfig(), onDismiss: {
-                    FavouritePokemonsManager.shared.addPokemonId(id)
-                }) {
-                    ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
-                }
-                .simpleToast(isPresented: $showToastDelete, options: getToastConfig(), onDismiss: {
-                    FavouritePokemonsManager.shared.removePokemonId(id)
-                }) {
-                    ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
-                }
             }
             .background(getBackgroundColor())
+            .simpleToast(isPresented: $showToast, options: getToastConfig(), onDismiss: {}) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastAdd, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.addPokemonId(id)
+            }) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
+            .simpleToast(isPresented: $showToastDelete, options: getToastConfig(), onDismiss: {
+                FavouritePokemonsManager.shared.removePokemonId(id)
+            }) {
+                ToastPopUpView(text: toastOptions.rawValue, color: toastOptions.getColor())
+            }
         }
     }
     
