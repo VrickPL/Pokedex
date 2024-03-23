@@ -13,6 +13,7 @@
 		743916B52BAE0B480062A199 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 743916B42BAE0B480062A199 /* SVGKitSwift */; };
 		743916B72BAE0E820062A199 /* PokemonImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743916B62BAE0E820062A199 /* PokemonImageViewModel.swift */; };
 		743916B92BAE16B30062A199 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743916B82BAE16B30062A199 /* Utils.swift */; };
+		743916C12BAF05850062A199 /* PokeballAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743916C02BAF05850062A199 /* PokeballAnimation.swift */; };
 		7473B0D12BAB8DC1000C0D70 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D02BAB8DC1000C0D70 /* Keys.swift */; };
 		7473B0D62BAB914D000C0D70 /* ClickPokemonTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */; };
 		7473B0D92BAB9F61000C0D70 /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 7473B0D82BAB9F61000C0D70 /* SimpleToast */; };
@@ -49,6 +50,7 @@
 		7435B5862BAB09C80066C58B /* FavouritePokemonsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePokemonsManager.swift; sourceTree = "<group>"; };
 		743916B62BAE0E820062A199 /* PokemonImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonImageViewModel.swift; sourceTree = "<group>"; };
 		743916B82BAE16B30062A199 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		743916C02BAF05850062A199 /* PokeballAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeballAnimation.swift; sourceTree = "<group>"; };
 		7473B0D02BAB8DC1000C0D70 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		7473B0D52BAB914D000C0D70 /* ClickPokemonTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickPokemonTip.swift; sourceTree = "<group>"; };
 		7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPopUpView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				74C5572F2BA79948009E4CA4 /* ToolbarView.swift */,
 				74C557332BA7997B009E4CA4 /* SettingsView.swift */,
 				7473B0DA2BAB9FE6000C0D70 /* ToastPopUpView.swift */,
+				743916C02BAF05850062A199 /* PokeballAnimation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				74C557322BA7996C009E4CA4 /* FavouritePokemonsView.swift in Sources */,
 				7435B5812BAA56980066C58B /* FavouritePokemonsViewModel.swift in Sources */,
 				7435B5872BAB09C80066C58B /* FavouritePokemonsManager.swift in Sources */,
+				743916C12BAF05850062A199 /* PokeballAnimation.swift in Sources */,
 				74C557192BA62833009E4CA4 /* LoadingView.swift in Sources */,
 				74C5571F2BA62A65009E4CA4 /* AllPokemonsView.swift in Sources */,
 				74BE50AD2BA86413008B10FD /* Language.swift in Sources */,

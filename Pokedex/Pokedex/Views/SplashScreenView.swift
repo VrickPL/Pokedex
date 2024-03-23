@@ -26,7 +26,6 @@ struct SplashScreenView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 200, height: 200)
-                            .cornerRadius(20)
                         Text(LocalizedStringKey("APP_NAME"))
                             .font(Font.custom("PressStart2P-Regular", size: 26))
                             .opacity(0.8)

@@ -15,11 +15,13 @@ class FavouritePokemonsManager {
     @AppStorage(Keys.favouritePokemons) private var favouritePokemons: String = ""
     
     func addPokemonId(_ id: Int) {
-          if favouritePokemons.isEmpty {
-              favouritePokemons.append("\(id)")
-          } else {
-              favouritePokemons.append(";\(id)")
-          }
+        if !checkIfIsSaved(id) {
+            if favouritePokemons.isEmpty {
+                favouritePokemons.append("\(id)")
+            } else {
+                favouritePokemons.append(";\(id)")
+            }
+        }
       }
     
     func removePokemonId(_ id: Int) {

@@ -25,6 +25,8 @@ struct DetailedPokemonView: View {
     
     @State private var isShowingDescription: Bool = false
     
+    @State private var isImageDoubleClicked = false
+    
     init(id: Int) {
         self.id = id
     }
@@ -50,29 +52,45 @@ struct DetailedPokemonView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .padding()
+                                .onTapGesture(count: 2, perform: handleImageDoubleTap)
+                                
                         } else if couldntGetPokemonImage {
                             PokemonImage(image: nil, width: pokemonWidth, isInMyPokedex: false)
+                                .onTapGesture(count: 2, perform: handleImageDoubleTap)
                         } else {
                             LoadingView()
                         }
-                        
+
+
                         HStack {
-                            if isInMyPokedex {
-                                Image(.pokeball)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width / 15)
+                            if isImageDoubleClicked {
+                                PokeballAnimation()
                                     .padding(.bottom)
+                            } else {
+                                if isInMyPokedex {
+                                    Image(.pokeball)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: PokeballAnimation.width)
+                                        .padding(.bottom)
+                                }
                             }
+
                             Text(pokemon!.name.capitalized)
                                 .font(.custom("PressStart2P-Regular", size: 18))
                                 .padding(.bottom)
-                            if isInMyPokedex {
-                                Image(.pokeball)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width / 15)
+                            
+                            if isImageDoubleClicked {
+                                PokeballAnimation()
                                     .padding(.bottom)
+                            } else {
+                                if isInMyPokedex {
+                                    Image(.pokeball)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: PokeballAnimation.width)
+                                        .padding(.bottom)
+                                }
                             }
                         }
                         
@@ -275,6 +293,17 @@ struct DetailedPokemonView: View {
         }
         .padding(.leading)
         .padding(.top)
+    }
+    
+    private func handleImageDoubleTap() {
+        if !FavouritePokemonsManager.shared.checkIfIsSaved(id) {
+            self.isImageDoubleClicked = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + PokeballAnimation.duration) {
+                FavouritePokemonsManager.shared.addPokemonId(id)
+                self.isImageDoubleClicked = false
+            }
+        }
     }
 }
 
