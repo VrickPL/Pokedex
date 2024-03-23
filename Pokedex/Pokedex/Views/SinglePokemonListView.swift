@@ -69,6 +69,7 @@ struct SinglePokemonListView: View {
                         Button {
                             self.toastOptions = .successDeletePokemon
                             self.showToast = true
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()   
                         } label: {
                             Image(systemName: "trash")
                                 .resizable()

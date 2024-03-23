@@ -45,7 +45,11 @@ struct DetailedPokemonView: View {
                         Text("couldntGetPokemon")
                             .foregroundStyle(Color.red)
                     } else if pokemon == nil {
-                        LoadingView()
+                        HStack {
+                            Spacer()
+                            LoadingView()
+                            Spacer()
+                        }
                     } else {
                         getPokemonImage()
                         
@@ -243,6 +247,7 @@ struct DetailedPokemonView: View {
             Button {
                 self.toastOptions = .successDeletePokemon
                 self.showToastDelete = true
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             } label: {
                 getFavouriteButtonView(for: "remove_from_pokeball")
             }
@@ -250,6 +255,7 @@ struct DetailedPokemonView: View {
             Button {
                 self.toastOptions = .successAddPokemon
                 self.showToastAdd = true
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             } label: {
                 getFavouriteButtonView(for: "catch_in_pokeball")
             }
@@ -259,6 +265,7 @@ struct DetailedPokemonView: View {
     private func handleImageDoubleTap() {
         if !FavouritePokemonsManager.shared.checkIfIsSaved(id) {
             self.isImageDoubleClicked = true
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + PokeballAnimation.duration) {
                 FavouritePokemonsManager.shared.addPokemonId(id)
