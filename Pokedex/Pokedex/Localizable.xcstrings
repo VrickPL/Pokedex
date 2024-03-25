@@ -203,12 +203,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Click Pokemon to see more info about him."
+            "value" : "Click Pokemon to see more info about it."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Naciśnij Pokemona, aby zobaczyć o nim więcej informacji."
           }
         }
@@ -742,12 +742,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Double tap Pokemon to add him to you Pokedex."
+            "value" : "Double tap Pokemon to add it to you Pokedex."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Kliknij podwójnie, aby dodać Pokemona do twojego Pokedexu."
           }
         }

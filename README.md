@@ -33,7 +33,7 @@ Each Pokemon is a different type and their background is based on it.
 After clicking on the **description** you can see more details about it.
 Below the description you can find the button, to catch the Pokemon or to release it.  
 After clicking a button you will see toast at the top of the screen.  
-You can also **double-tap** a Pokemon to catch it and you will see small animation with the Pokeballs around his name.  
+You can also **double-tap** a Pokemon to catch it and you will see small animation with the Pokeballs around its name.  
 When you catch the Pokemon you will see a Pokeball in the top right corner of its preview image.
 
 ![pokedex1](https://github.com/VrickPL/Pokedex/assets/122796088/23482b84-0a3b-4049-8680-075047e3d6d9)
@@ -45,7 +45,7 @@ When you catch the Pokemon you will see a Pokeball in the top right corner of it
 <a name="favourite"></a>
 ## Favourite
 In this section, you will see Pokemons that you have caught.  
-You can release them here by clicking a bin or click on it to see his details.
+You can release them here by clicking a bin or click on it to see its details.
 
 ![favourite1](https://github.com/VrickPL/Pokedex/assets/122796088/5eece593-bfb2-4da7-ae27-6d612bb97b2b)
 
