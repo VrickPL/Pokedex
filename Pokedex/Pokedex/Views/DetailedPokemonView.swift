@@ -260,7 +260,7 @@ struct DetailedPokemonView: View {
                 self.showToastDelete = true
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             } label: {
-                getFavouriteButtonView(for: "remove_from_pokeball")
+                getFavouriteButtonView(for: "release_from_pokeball")
             }
         } else {
             Button {

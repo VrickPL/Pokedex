@@ -821,13 +821,13 @@
         }
       }
     },
-    "remove_from_pokeball" : {
+    "release_from_pokeball" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remove from Pokeball"
+            "value" : "Release from Pokeball"
           }
         },
         "pl" : {
