@@ -7,7 +7,6 @@ Mobile App for iOS to scroll through all Pokemons. Catch Pokemons and see them i
 <br>
 
 <p align="center"> 
-<img src="https://github.com/VrickPL/Pokedex/assets/122796088/10e39f19-d594-4d94-adfd-e5889172176b" width="310" height="660">
 <img src="https://github.com/VrickPL/Pokedex/assets/122796088/1d4accf4-3ab2-4931-99cb-d10466f74090" width="310" height="660">
 <img src="https://github.com/VrickPL/Pokedex/assets/122796088/cbf925a3-aa2e-4af4-a55c-38ecb946780c" width="310" height="660">
 </p>
