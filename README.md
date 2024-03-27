@@ -36,8 +36,8 @@ Based on **PokeApi**: https://pokeapi.co
 </p>
 
 
-<a name="pokedex"></a>
-## Pokedex
+<a name="pokedex-section"></a>
+## Pokedex section
 Pokedex is a **Pokemon encyclopedia**, where you can scroll and get to know different Pokemons!  
 Pokemons are displayed with **Infinite Scroll**, so all data are not downloaded at once and is slowly downloaded by scrolling.  
 The tip at the top teaches you that you can click on Pokémon and see some details about him.
@@ -50,8 +50,8 @@ If you want to refresh downloaded Pokemons, you can just drag the screen down.
 https://github.com/VrickPL/Pokedex/assets/122796088/68c9c102-09d1-4bb1-ac11-1fd7b7d70aea
 
 
-<a name="pokemon-section"></a>
-## Pokemon Section
+<a name="pokemon"></a>
+## Pokemon
 Pokemon image is displayed by **SVGKit**.  
 Each Pokemon is a different type and their background is based on it.  
 After clicking on the **description** you can see more details about it.
