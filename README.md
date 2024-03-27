@@ -11,7 +11,16 @@ Mobile App for iOS to scroll through all Pokemons. Catch Pokemons and see them i
 <img src="https://github.com/VrickPL/Pokedex/assets/122796088/cbf925a3-aa2e-4af4-a55c-38ecb946780c" width="310" height="660">
 </p>
 
-## Used technologies:
+## Table of contents
+- [Used technologies](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#used-technologies-and-libraries)
+- [Splash Screen](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#splash-screen)
+- [Pokedex](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#pokedex)
+- [Pokemon](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#pokemon)
+- [Favourite section](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#favourite-section)
+- [Search](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#search)
+- [Settings](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#settings)
+
+## Used technologies and libraries
 -**Swift**,  
 -**SwiftUI**,  
 -**TipKit**,  
@@ -63,8 +72,8 @@ When you catch the Pokemon you will see a Pokeball in the top right corner of it
 </p>
 
 
-<a name="favourite"></a>
-## Favourite
+<a name="favourite-section"></a>
+## Favourite section
 In this section, you will see Pokemons that you have caught.  
 You can release them here by clicking a bin or click on it to see its details.
 
