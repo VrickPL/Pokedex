@@ -11,21 +11,21 @@ Mobile App for iOS to scroll through all Pokemons. Catch Pokemons and see them i
 <img src="https://github.com/VrickPL/Pokedex/assets/122796088/cbf925a3-aa2e-4af4-a55c-38ecb946780c" width="310" height="660">
 </p>
 
-## Table of contents
-- [Used technologies](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#used-technologies-and-libraries)
+## Table of contents 
+- [Used technologies and libraries](https://github.com/VrickPL/Pokedex/blob/main/README.md#used-technologies-and-libraries)
 - [Splash Screen](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#splash-screen)
-- [Pokedex](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#pokedex)
+- [Pokedex section](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#pokedex-section)
 - [Pokemon](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#pokemon)
 - [Favourite section](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#favourite-section)
 - [Search](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#search)
 - [Settings](https://github.com/VrickPL/Pokedex?tab=readme-ov-file#settings)
 
 ## Used technologies and libraries
--**Swift**,  
--**SwiftUI**,  
--**TipKit**,  
--**SVGKit**,  
--**SimpleToast**
+- **[Swift](https://www.swift.org/documentation/)**,  
+- **[SwiftUI](https://developer.apple.com/tutorials/swiftui)**,  
+- **[TipKit](https://developer.apple.com/documentation/tipkit/)**,  
+- **[SVGKit](https://github.com/SVGKit/SVGKit)**,  
+- **[SimpleToast](https://github.com/sanzaru/SimpleToast)**
   
 Based on **PokeApi**: https://pokeapi.co
 
@@ -50,8 +50,8 @@ If you want to refresh downloaded Pokemons, you can just drag the screen down.
 https://github.com/VrickPL/Pokedex/assets/122796088/68c9c102-09d1-4bb1-ac11-1fd7b7d70aea
 
 
-<a name="pokemon"></a>
-## Pokemon
+<a name="pokemon-section"></a>
+## Pokemon Section
 Pokemon image is displayed by **SVGKit**.  
 Each Pokemon is a different type and their background is based on it.  
 After clicking on the **description** you can see more details about it.
